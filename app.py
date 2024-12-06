@@ -10,7 +10,7 @@ app.config.from_object(Config)
 CORS(app)
 db.init_app(app)
 
-# コンフィグの設定（ここにAWSとRDSの認証情報を設定） 
+# コンフィグの設定（ここにAWSとRDSの認証情報を設定）必要に応じて入力 
 app.config['AWS_ACCESS_KEY_ID'] = 'YOUR_AWS_ACCESS_KEY_ID' 
 app.config['AWS_SECRET_ACCESS_KEY'] = 'YOUR_AWS_SECRET_ACCESS_KEY' 
 app.config['S3_BUCKET'] = 'myclosetphoto' 
