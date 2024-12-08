@@ -1,6 +1,6 @@
 # AIコーディネート生成
+from ..config import Config
 import openai
-from config import Config
 
 openai.api_key = Config.OPENAI_API_KEY
 
