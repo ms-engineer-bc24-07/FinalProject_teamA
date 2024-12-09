@@ -1,4 +1,4 @@
-
+### ディレクトリ構成
 my-closet-app/
 ├── app.py
 ├── backend/

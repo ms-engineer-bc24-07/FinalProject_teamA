@@ -1,4 +1,4 @@
-### ホーム画面/コーディネート提案のフロントエンド　（App Routerありver.）
+### （App Routerありver.） ホーム画面/コーディネート提案のフロントエンド　
 frontend/src/
 ├── app/
 │   ├── page.tsx
