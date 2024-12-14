@@ -1,15 +1,14 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from backend.services import image_service, vision_service, openai_service
+from backend.app.services import image_service, vision_service, ai_recommender
 from backend.models.clothes import Clothes
 from backend.utils.db import db
-from config.config import Config
+from backend.app.config import Config
 
 app = Flask(__name__)
 app.config.from_object(Config)
 CORS(app)
 db.init_app(app)
-
 
 @app.route('/upload', methods=['POST'])
 def upload_image():

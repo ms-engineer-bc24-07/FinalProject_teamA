@@ -1,6 +1,6 @@
 import os
-import openai
 from config import Config
+import openai
 
 # 環境変数からAPIキーを取得
 openai.api_key = Config.OPENAI_API_KEY
