@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS  # この行を追加
 from config import Config
 import boto3
+import openai  # この行を追加
 
 db = SQLAlchemy()
 s3 = None
@@ -23,6 +24,8 @@ def create_app():
         aws_secret_access_key=app.config['AWS_SECRET_ACCESS_KEY']
     )
 
+# OpenAI APIキーの設定
+    openai.api_key = app.config['OPENAI_API_KEY']  # この行を追加
     with app.app_context():
         from app.routes.main import main
         app.register_blueprint(main)
