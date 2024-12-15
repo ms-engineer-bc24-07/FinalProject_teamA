@@ -1,0 +1,4 @@
+/* styles/Home1.css */
+.messageBox {
+    @apply p-4 bg-blue-100 rounded-lg shadow-md;
+  }
