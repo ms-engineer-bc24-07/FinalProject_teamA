@@ -4,7 +4,6 @@ import MessageBox from './components/Outfits/Outfits1/MessageBox';
 const Home1 = () => {
   return (
     <div>
-      <h1>Welcome to Home1</h1>
       <MessageBox />
     </div>
   );

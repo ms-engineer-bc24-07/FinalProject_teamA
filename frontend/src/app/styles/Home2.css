@@ -1,8 +1,0 @@
-/* styles/Home2.css */
-.outfitList {
-    @apply flex gap-4 p-4;
-  }
-
-  .outfitItem {
-    @apply p-4 border border-gray-400 rounded-lg bg-gray-100;
-  }
