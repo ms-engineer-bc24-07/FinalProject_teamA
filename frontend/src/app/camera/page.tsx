@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Box, Button, Flex, IconButton, Image } from '@chakra-ui/react';
 import { Camera } from "lucide-react";
+import { Link } from "@chakra-ui/react"
 
 
 const CameraPage: React.FC = () => {
@@ -30,14 +31,14 @@ const CameraPage: React.FC = () => {
         {isPhotoTaken ? (
           <Image src="/preview-image.png" alt="Preview" mb={4} />
         ) : (
-          <>
+        <Link href="/registration">
             <Button colorScheme="yellow" onClick={handleYesClick} mb={2}>
               OK
             </Button>
             <Button colorScheme="gray" onClick={handleNoClick}>
               again
             </Button>
-          </>
+            </Link>
         )}
       </Flex>
     </Box>
