@@ -25,50 +25,50 @@ export default function SignupCard() {
 
   return (
     <Flex
-      minH={'100vh'}
-      align={'center'}
-      justify={'center'}
-      bg={'gray.50'}>
-      <Stack padding={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+    minH={'100vh'}
+    align={'center'}
+    justify={'center'}
+    bg={'gray.50'}>
+    <Stack padding={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
-          <Heading fontSize={'4xl'} textAlign={'center'}>
+        <Heading fontSize={'4xl'} textAlign={'center'}>
             Sign up
-          </Heading>
-          <Text fontSize={'lg'} color={'gray.600'}>
+        </Heading>
+        <Text fontSize={'lg'} color={'gray.600'}>
             to enjoy all of our cool features ✌️
-          </Text>
+        </Text>
         </Stack>
         <Box
-          rounded={'lg'}
-          bg={'white'}
-          boxShadow={'lg'}
-          p={8}>
-          <Stack padding={4}>
+        rounded={'lg'}
+        bg={'white'}
+        boxShadow={'lg'}
+        p={8}>
+        <Stack padding={4}>
             <Stack>
-              <Box>
-              <Field invalid={false} label="Email" errorText="This field is required">
-      <Input placeholder="Enter your email" />
+            <Box>
+    <Field invalid={false} label="Email" errorText="This field is required">
+    <Input placeholder="Enter your email" />
     </Field>
-              </Box>
-              <Box>
-              <Field invalid={false} label="Email" errorText="This field is required">
-      <Input placeholder="Enter your email" />
-    </Field>              </Box>
+            </Box>
+            <Box>
+    <Field invalid={false} label="Email" errorText="This field is required">
+    <Input placeholder="Enter your email" />
+    </Field>             </Box>
             </Stack>
             <Stack padding={10} pt={2}>
-              <Button
+            <Button
                 size="lg"
                 bg={'blue.400'}
                 color={'white'}
                 _hover={{
-                  bg: 'blue.500',
+                bg: 'blue.500',
                 }}>
                 Sign up
-              </Button>
+            </Button>
             </Stack>
-          </Stack>
+        </Stack>
         </Box>
-      </Stack>
+    </Stack>
     </Flex>
-  )
+)
 }
