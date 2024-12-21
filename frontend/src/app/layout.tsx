@@ -1,11 +1,10 @@
 "use client";
 
 import { Provider } from "@/components/ui/provider";
-import { createSystem, defaultConfig } from "@chakra-ui/react"
+import { createSystem, defaultConfig } from "@chakra-ui/react";
 import Header from "@/app/components/Common/Header";
 import Footer from "@/app/components/Common/Footer";
 import "@/app/styles/globals.css";
-
 
 export const system = createSystem(defaultConfig, {
   theme: {
@@ -17,7 +16,6 @@ export const system = createSystem(defaultConfig, {
     },
   },
 });
-
 
 export default function RootLayout({
   children,

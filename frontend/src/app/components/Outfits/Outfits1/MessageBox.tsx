@@ -22,7 +22,7 @@ const MessageBox = () => {
         rounded="lg" // 角丸
         transition="0.2s" // トランジション時間
       >
-        I wanna get new look
+        何着て行こうかな？
       </Button>
     </Box>
   );

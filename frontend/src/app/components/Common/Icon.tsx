@@ -1,5 +1,5 @@
-import { Box } from '@chakra-ui/react';
-import React from 'react';
+import { Box } from "@chakra-ui/react";
+import React from "react";
 
 type IconProps = {
   name: string;
@@ -18,3 +18,4 @@ const Icon = ({ name, size = 24 }: IconProps) => {
 };
 
 export default Icon;
+//
