@@ -1,4 +1,4 @@
-import { Box, Heading } from '@chakra-ui/react';
+import { Box, Heading } from "@chakra-ui/react";
 
 const Header = () => {
   return (
@@ -6,12 +6,12 @@ const Header = () => {
       as="header"
       textAlign="center"
       p={4}
-      bg="gray.300"
+      bg="green.400"
       borderBottom="1px"
-      borderColor="gray.400"
+      borderColor="green.400"
     >
       <Heading as="h1" size="lg" fontWeight="bold">
-        My Closet App
+        Dayzy
       </Heading>
     </Box>
   );

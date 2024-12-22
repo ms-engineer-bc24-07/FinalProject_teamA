@@ -19,9 +19,9 @@ const Footer = () => {
       position="fixed"
       bottom={0}
       width="100%"
-      bg="gray.100"
+      bg="gray.50"
       borderTop="1px"
-      borderColor="gray.200"
+      borderColor="green.400"
       boxShadow="sm"
       zIndex={10}
     >
