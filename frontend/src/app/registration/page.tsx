@@ -83,7 +83,7 @@ const RegistrationPage: React.FC = () => {
               <option value="top">Top</option>
               <option value="bottom">Bottom</option>
               <option value="outer">Outer</option>
-              <option value="accessory">Accessory</option>
+              <option value="one piece">Accessory</option>
             </NativeSelectField>
           </NativeSelectRoot>
         </Box>
