@@ -1,6 +1,5 @@
-//アイコン表示用
-// app/components/Common/Icon.tsx
-import React from 'react';
+import { Box } from "@chakra-ui/react";
+import React from "react";
 
 type IconProps = {
   name: string;
@@ -8,7 +7,15 @@ type IconProps = {
 };
 
 const Icon = ({ name, size = 24 }: IconProps) => {
-  return <i className={`icon-${name}`} style={{ fontSize: size }} />;
+  return (
+    <Box
+      as="i"
+      className={`icon-${name}`}
+      fontSize={`${size}px`}
+      display="inline-block"
+    />
+  );
 };
 
 export default Icon;
+//

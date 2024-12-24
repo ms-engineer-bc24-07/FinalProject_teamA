@@ -1,13 +1,18 @@
-// Outfits1 の画面(ホーム画面 兼 コーデ提案ページ)
-import MessageBox from './components/Outfits/Outfits1/MessageBox';
+//ホーム画面
+import { Flex } from "@chakra-ui/react";
+import MessageBox from "./components/Outfits/Outfits1/MessageBox";
 
-const Home1 = () => {
+const Outfits1 = () => {
   return (
-    <div>
-      <h1>Welcome to Home1</h1>
+    <Flex
+      height="100vh" // 画面全体の高さ
+      width="100%" // 横幅を全体に
+      justifyContent="center" // 横方向の中央揃え
+      pt="200px" // 上部の余白を設定
+    >
       <MessageBox />
-    </div>
+    </Flex>
   );
 };
 
-export default Home1;
+export default Outfits1;

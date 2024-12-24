@@ -1,25 +1,30 @@
-// app/components/Home/Home1/MessageBox.tsx
-'use client'; // クライアントコンポーネントを明示
+"use client"; // クライアントコンポーネントを明示
 
-import { useRouter } from 'next/navigation';
+import { Button, Box } from "@chakra-ui/react";
+import { useRouter } from "next/navigation";
 
 const MessageBox = () => {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push('/home2'); // Home2ページに遷移
+    router.push("/outfits2"); // outfits2ページに遷移
   };
 
   return (
-    <div className="p-4 bg-blue-100 rounded-lg shadow-md text-center">
-      <p className="mb-4 text-lg font-semibold">enjoy with your fashion item everyday.</p>
-      <button
+    <Box p={4} textAlign="center">
+      <Button
         onClick={handleClick}
-        className="px-6 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition duration-200"
+        bg="green.400" // 背景色
+        color="gray.700" // テキスト色
+        _hover={{ bg: "orange.500" }} // ホバー時の背景色
+        px={6} // パディングX
+        py={2} // パディングY
+        rounded="lg" // 角丸
+        transition="0.2s" // トランジション時間
       >
-        I wanna get new look
-      </button>
-    </div>
+        何着て行こうかな？
+      </Button>
+    </Box>
   );
 };
 

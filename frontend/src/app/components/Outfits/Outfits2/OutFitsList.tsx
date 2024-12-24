@@ -1,33 +1,39 @@
 //提案されたコーデのアイテム表示
-// app/components/Home/Home2/OutfitList.tsx
+
+import { Box, Heading, Text, SimpleGrid } from "@chakra-ui/react";
+
 type Outfit = {
   id: number;
   name: string;
-  description: string;
 };
 
 const outfits: Outfit[] = [
-  { id: 1, name: 'Outfit 1', description: 'A casual style for everyday.' },
-  { id: 2, name: 'Outfit 2', description: 'Perfect for formal events.' },
-  { id: 3, name: 'Outfit 3', description: 'A sporty look for active days.' },
+  { id: 1, name: "アイテム１" },
+  { id: 2, name: "アイテム２" },
+  // { id: 3, name: 'Outfit 3', description: 'A sporty look for active days.' },
 ];
 
 const OutfitList = () => {
   return (
-    <div className="p-4">
-      <h2 className="mb-4 text-xl font-semibold">Recommended Outfits</h2>
-      <ul className="grid gap-4 md:grid-cols-3 sm:grid-cols-1">
+    <Box p={4}>
+      <SimpleGrid columns={{ base: 1, md: 3 }} gap={4}>
         {outfits.map((outfit) => (
-          <li
+          <Box
             key={outfit.id}
-            className="p-4 border border-gray-400 rounded-lg bg-gray-100 shadow hover:shadow-lg transition"
+            p={4}
+            borderWidth="1px"
+            borderRadius="lg"
+            bg="gray.100"
+            boxShadow="md"
+            _hover={{ boxShadow: "lg" }}
           >
-            <h3 className="text-lg font-bold">{outfit.name}</h3>
-            <p className="text-sm">{outfit.description}</p>
-          </li>
+            <Heading as="h3" size="md" mb={2}>
+              {outfit.name}
+            </Heading>
+          </Box>
         ))}
-      </ul>
-    </div>
+      </SimpleGrid>
+    </Box>
   );
 };
 

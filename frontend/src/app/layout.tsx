@@ -1,23 +1,36 @@
-// app/layout.tsx
-import Header from '@/app/components/Common/Header';
-import Footer from '@/app/components/Common/Footer';
-import '@/app/styles/globals.css';
+"use client";
 
-export const metadata = {
-  title: 'My App',
-  description: 'A great app with dynamic styling.',
-};
+import { Provider } from "@/components/ui/provider";
+import { createSystem, defaultConfig } from "@chakra-ui/react";
+import Header from "@/app/components/Common/Header";
+import Footer from "@/app/components/Common/Footer";
+import "@/app/styles/globals.css";
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+export const system = createSystem(defaultConfig, {
+  theme: {
+    tokens: {
+      fonts: {
+        heading: { value: `'Figtree', sans-serif` },
+        body: { value: `'Figtree', sans-serif` },
+      },
+    },
+  },
+});
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
-      <body className="flex flex-col min-h-screen">
-        <Header />
-        <main className="flex-grow p-4">{children}</main>
-        <Footer />
+      <body>
+        <Provider value={system}>
+          <Header />
+          {children}
+          <Footer />
+        </Provider>
       </body>
     </html>
   );
-};
-
-export default Layout;
+}
