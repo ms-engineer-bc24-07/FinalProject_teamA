@@ -1,0 +1,75 @@
+/* src/app/camera/styles.css */
+
+.camera-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.camera-button {
+    width: 100px;
+    height: 100px;
+    font-size: 18px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.camera-button:hover {
+    background-color: #45a049;
+}
+
+.capture-button {
+    width: 100px;
+    height: 100px;
+    font-size: 18px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.capture-button:hover {
+    background-color: #00b365;
+}
+
+.save-button, .cancel-button {
+    width: 100px;
+    height: 40px;
+    font-size: 16px;
+    background-color: #4097e9;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-right: 10px; /* ボタン同士の間隔を調整 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.save-button:hover {
+    background-color: #45a049;
+}
+
+.cancel-button {
+    background-color: #FF0000;
+}
+
+.cancel-button:hover {
+    background-color: #CC0000;
+}
