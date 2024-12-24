@@ -6,6 +6,12 @@ from flask_cors import CORS  # この行を追加
 from config import Config
 import boto3
 import openai  # この行を追加
+from app.routes.items import items_bp
+from app.routes.main import main
+from app.routes.users import users_bp
+from app.routes.coordinate import coordinate_bp
+from app.db.usersdb import db, User
+# from app.routes.items_analyze import items_analyze_bp
 
 db = SQLAlchemy()
 s3 = None
@@ -15,7 +21,7 @@ def create_app():
     CORS(app)  # この行を追加
     app.config.from_object(Config)
 
-    db.init_app(app)
+    db.init_app(app)# データベースを初期化
 
     # S3クライアントの初期化
     global s3
@@ -27,8 +33,14 @@ def create_app():
 # OpenAI APIキーの設定
     openai.api_key = app.config['OPENAI_API_KEY']  # この行を追加
     with app.app_context():
-        from app.routes.main import main
         app.register_blueprint(main)
+        app.register_blueprint(items_bp, url_prefix="/items")
+        app.register_blueprint(coordinate_bp, url_prefix="/coordinate")
+        app.register_blueprint(users_bp, url_prefix="/users")
+        # app.register_blueprint(items/analyze_bp, url_prefix="/items/analyze")
+        # app.register_blueprint(coordinate_bp, url_prefix="/coordinate/recommend")
+        
+        
 
     @app.route('/')
     def index():
