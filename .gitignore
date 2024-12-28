@@ -50,3 +50,6 @@ flask_session/
 *.pid
 *.bak
 *.swp
+
+# Secret key generation script
+generate_secret_key.py
