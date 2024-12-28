@@ -11,7 +11,7 @@ const Header = () => {
       borderColor="green.400"
     >
       <Heading as="h1" size="lg" fontWeight="bold">
-        Dayzy
+        Dayzzy
       </Heading>
     </Box>
   );
