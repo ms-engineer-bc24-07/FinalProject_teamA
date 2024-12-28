@@ -1,9 +1,9 @@
-# items テーブルを操作するための Item モデルを定義
-
-from app import db
+# アイテムモデルの定義
+from app.utils.db import db
 
 class Item(db.Model):
     __tablename__ = 'items'
+    
     id = db.Column(db.Integer, primary_key=True)
     category = db.Column(db.String(50), nullable=False)
     color = db.Column(db.String(50), nullable=False)

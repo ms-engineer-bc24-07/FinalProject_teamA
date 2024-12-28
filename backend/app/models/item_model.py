@@ -1,9 +1,25 @@
-# アイテム関連のデータ処理
-
+# SQLAlchemy を使用してユーザーのアイテムを取得するためのデータ処理を行う
+from app.utils.db import db
 from sqlalchemy import create_engine, text
 from config import Config
 
 engine = create_engine(Config.SQLALCHEMY_DATABASE_URI)
+
+class Item(db.Model):
+    __tablename__ = 'items'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    category = db.Column(db.String(50), nullable=False)
+    color = db.Column(db.String(50), nullable=False)
+    url = db.Column(db.String(255), nullable=False)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'category': self.category,
+            'color': self.color,
+            'url': self.url
+        }
 
 def fetch_user_items(user_id, preferred_colors, preferred_tag):
     """
