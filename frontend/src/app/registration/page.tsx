@@ -12,7 +12,7 @@ import {
 const RegistrationPage: React.FC = () => {
   const [category, setCategory] = useState("");
   const [color, setColor] = useState("");
-  const [image, setImage] = useState("/item-image.png"); // 仮の画像URL
+  const [itemImageURL, setItemImageURL] = useState("/item-itemImageURL.png"); // 仮の画像URL
 
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setCategory(e.target.value); // カテゴリーを更新
@@ -33,7 +33,7 @@ const RegistrationPage: React.FC = () => {
     }
 
     const payload = {
-      image, // 画像URL（AWS S3のURLに置き換える）
+      itemImageURL, // 画像URL（AWS S3のURLに置き換える）
       categoryTag: category,
       colorTag: color,
     };
@@ -90,7 +90,7 @@ const RegistrationPage: React.FC = () => {
         </Text>
       </Box>
 
-      {/* Image & Form */}
+      {/* itemImageURL & Form */}
       <Box
         w="90%"
         maxW="400px"
@@ -105,9 +105,9 @@ const RegistrationPage: React.FC = () => {
           <FaTshirt size={36} />
         </Box>
 
-        {/* Item Image */}
+        {/* Item itemImageURL */}
         <Image
-          src="/item-image.png" // アイテム画像のパス（publicフォルダ内）
+          src="/item-itemImageURL.png" // アイテム画像のパス（publicフォルダ内）
           alt="Item"
           borderRadius="md"
           boxSize="200px"

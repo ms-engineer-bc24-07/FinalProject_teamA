@@ -1,6 +1,6 @@
 // 前Outfits2の中身
 import { Box, Text, Container } from "@chakra-ui/react";
-import OutfitList from "./OutFitsList";
+import OutfitsList from "./OutFitsList";
 import Buttons from "./Buttons";
 import { useState } from "react";
 
@@ -28,7 +28,7 @@ const Coordinate: React.FC<Props> = ({
         <Text color="gray.600">今日のあなたにぴったりな服装はこれです！</Text>
       </Container>
       <Box mb={8}>
-        <OutfitList />
+        <OutfitsList />
       </Box>
       <Container centerContent>
         <Buttons />
