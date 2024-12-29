@@ -1,5 +1,11 @@
 'use client'
 
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { useState } from 'react'
+// import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
+import { Field } from "@/components/ui/field"
+import { useRouter } from 'next/router'
+
 import {
   Flex,
   Box,
@@ -16,12 +22,46 @@ import {
 //   useColorModeValue,
   Link,
 } from '@chakra-ui/react'
-import { useState } from 'react'
-// import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
-import { Field } from "@/components/ui/field"
 
 export default function SignupCard() {
-  const [showPassword, setShowPassword] = useState(false)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState<string | null>(null)
+  const router = useRouter()
+  const auth = getAuth();  // Firebase Auth を取得
+  
+  // 新規登録処理
+  const handleSignup = async () => {
+    try {
+      // Firebaseで新規ユーザーを作成
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      console.log('User created successfully')
+
+      // ユーザーのIDトークンを取得
+      const user = userCredential.user;
+      const idToken = await user.getIdToken();  // IDトークンを取得
+
+      // トークンをバックエンドのAPIに送信
+      fetch('/api/protected', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${idToken}`,  // Authorizationヘッダーにトークンを設定
+        }
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);  // サーバーからのレスポンスを処理
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+
+    // 登録成功後のリダイレクト
+      router.push('/home')  // ホーム画面に遷移
+    } catch (err: any) {
+      setError(err.message)  // エラーメッセージを表示
+    }
+  }
 
   return (
     <Flex
