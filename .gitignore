@@ -1,0 +1,55 @@
+# Environment variables
+.env
+
+# Virtual environments
+venv/
+env/
+
+# Compiled Python files
+__pycache__/
+*.pyc
+*.pyo
+
+# Log files
+*.log
+
+# Database files
+*.sqlite3
+*.db
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE or editor specific files
+.vscode/
+.idea/
+
+# Node modules
+node_modules/
+
+# Image directory
+path/to/your/image/directory/
+
+# Backup files
+*~
+*.swp
+*.swo
+
+# Static and temp files
+instance/
+static/
+tmp/
+
+# Flask session files
+flask_session/
+
+# Docker related files
+*.tgz
+*.log
+*.pid
+*.bak
+*.swp
+
+# Secret key generation script
+generate_secret_key.py
