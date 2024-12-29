@@ -13,27 +13,25 @@ const Closet = () => {
   const [filteredItems, setFilteredItems] = useState<
     { categoryTag: string; name: string }[]
   >([]); // カテゴリー別に表示するアイテム
-  // カテゴリー変更時に画像を更新
+
+  // TODO api完成したら繋げる。カテゴリー変更時に画像を更新
+  // useEffect(() => {
+  //   // APIからデータを取得する場合
+  //   fetch("/api/items")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setItems(data.items);
+  //     })
+  //     .catch((error) => console.error("Error fetching items:", error));
+  // }, []);
+
+  // カテゴリーが変更されたときにフィルタリング
   useEffect(() => {
-    // // APIからデータを取得する場合は以下のように置き換え
-    // useEffect(() => {
-    //   fetch("/api/items")
-    //     .then((res) => res.json())
-    //     .then((data) => {
-    //       setItems(data.items);
-    //     })
-    //     .catch((error) => console.error("Error fetching items:", error));
-    // }, []);
-    // カテゴリーが変更されたときにフィルタリング
-    useEffect(() => {
-      const filtered = items.filter(
-        (item) => item.categoryTag === currentCategory
-      );
-      setFilteredItems(filtered);
-    }, [currentCategory, items]);
-    // ダミーデータを使用
-    // setImages(testMock[currentCategory] || []);
-  }, [currentCategory]);
+    const filtered = items.filter(
+      (item) => item.categoryTag === currentCategory
+    );
+    setFilteredItems(filtered);
+  }, [currentCategory, items]);
 
   return (
     <Box>
@@ -49,15 +47,9 @@ const Closet = () => {
               ボトムス
             </Link>
           </Tabs.Trigger>
-          <Tabs.Trigger value="outer" asChild>
-            <Link unstyled href="#outer">
-              アウター
-            </Link>
-          </Tabs.Trigger>
         </Tabs.List>
         <Tabs.Content value="tops"></Tabs.Content>
         <Tabs.Content value="bottoms">Bottoms</Tabs.Content>
-        <Tabs.Content value="outer">Outer</Tabs.Content>
       </Tabs.Root>
     </Box>
   );
