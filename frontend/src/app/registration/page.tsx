@@ -15,11 +15,11 @@ const RegistrationPage: React.FC = () => {
   const [image, setImage] = useState("/item-image.png"); // 仮の画像URL
 
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCategory(e.target.value);
+    setCategory(e.target.value); // カテゴリーを更新
   };
 
   const handleColorChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setColor(e.target.value);
+    setColor(e.target.value); // カラーを更新
   };
 
   const handleSave = async () => {
