@@ -1,16 +1,9 @@
 "use client"; // Next.jsでクライアントコンポーネント指定
 
 import React, { useState } from "react";
-import {
-  Box,
-  Flex,
-  Image,
-  Button,
-  Text,
-  IconButton,
-  Spacer,
-} from "@chakra-ui/react";
-import { FaHome, FaCamera, FaTshirt, FaCog } from "react-icons/fa";
+import { Box, Flex, Image, Button, Text, Spacer } from "@chakra-ui/react";
+import { Toaster, toaster } from "@/components/ui/toaster";
+import { FaTshirt } from "react-icons/fa";
 import {
   NativeSelectField,
   NativeSelectRoot,
@@ -19,6 +12,7 @@ import {
 const RegistrationPage: React.FC = () => {
   const [category, setCategory] = useState("");
   const [color, setColor] = useState("");
+  const [image, setImage] = useState("/item-image.png"); // 仮の画像URL
 
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setCategory(e.target.value);
@@ -26,6 +20,58 @@ const RegistrationPage: React.FC = () => {
 
   const handleColorChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setColor(e.target.value);
+  };
+
+  const handleSave = async () => {
+    if (!category || !color) {
+      toaster.create({
+        title: "Validation Error",
+        description: "Please select both category and color.",
+        type: "error",
+      });
+      return;
+    }
+
+    const payload = {
+      image, // 画像URL（AWS S3のURLに置き換える）
+      categoryTag: category,
+      colorTag: color,
+    };
+
+    try {
+      const response = await fetch("/api/items", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (response.ok) {
+        toaster.create({
+          title: "Success",
+          description: "Item saved successfully.",
+          type: "success",
+        });
+        // フォームをリセット
+        setCategory("");
+        setColor("");
+      } else {
+        const errorData = await response.json();
+        toaster.create({
+          title: "Error",
+          description: errorData.message || "Failed to save item.",
+          type: "error",
+        });
+      }
+    } catch (error) {
+      console.error("Error saving item:", error);
+      toaster.create({
+        title: "Network Error",
+        description: "Unable to save item. Please try again later.",
+        type: "error",
+      });
+    }
   };
 
   return (
@@ -83,7 +129,7 @@ const RegistrationPage: React.FC = () => {
               <option value="top">Top</option>
               <option value="bottom">Bottom</option>
               <option value="outer">Outer</option>
-              <option value="one piece">Accessory</option>
+              <option value="one piece">OnePiece</option>
             </NativeSelectField>
           </NativeSelectRoot>
         </Box>
@@ -99,11 +145,17 @@ const RegistrationPage: React.FC = () => {
               value={color}
               onChange={handleColorChange}
             >
-              <option value="red">Red</option>
-              <option value="blue">Blue</option>
-              <option value="green">Green</option>
-              <option value="yellow">Yellow</option>
-              <option value="black">Black</option>
+              <option value="ホワイト">Red</option>
+              <option value="ブラック">Blue</option>
+              <option value="ブラウン">Green</option>
+              <option value="ネイビー">Yellow</option>
+              <option value="ベージュ">Black</option>
+              <option value="カーキ">Black</option>
+              <option value="レッド">Black</option>
+              <option value="ブルー">Black</option>
+              <option value="イエロー">Black</option>
+              <option value="パープル">Black</option>
+              <option value="ピンク">Black</option>
             </NativeSelectField>
           </NativeSelectRoot>
         </Box>
@@ -120,31 +172,6 @@ const RegistrationPage: React.FC = () => {
       </Box>
 
       <Spacer />
-
-      {/* Bottom Navigation */}
-      <Box
-        w="100%"
-        bg="yellow.300"
-        p={4}
-        display="flex"
-        justifyContent="space-around"
-        alignItems="center"
-        borderTopRadius="xl"
-        mt={8}
-      >
-        <IconButton aria-label="home" fontSize="2xl" bg="transparent">
-          <FaHome />
-        </IconButton>
-        <IconButton aria-label="camera" fontSize="2xl" bg="transparent">
-          <FaCamera />
-        </IconButton>
-        <IconButton aria-label="closet" fontSize="2xl" bg="transparent">
-          <FaTshirt />
-        </IconButton>
-        <IconButton aria-label="setting" fontSize="2xl" bg="transparent">
-          <FaCog />
-        </IconButton>
-      </Box>
     </Box>
   );
 };
