@@ -19,4 +19,5 @@ export const cliCommands = `
 npx @chakra-ui/cli snippet add
 npx @chakra-ui/cli snippet add native-select
 npx @chakra-ui/cli snippet add dialog
+npx @chakra-ui/cli snippet add toaster
 `;
