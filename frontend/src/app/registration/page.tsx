@@ -1,16 +1,9 @@
 "use client"; // Next.jsでクライアントコンポーネント指定
 
 import React, { useState } from "react";
-import {
-  Box,
-  Flex,
-  Image,
-  Button,
-  Text,
-  IconButton,
-  Spacer,
-} from "@chakra-ui/react";
-import { FaHome, FaCamera, FaTshirt, FaCog } from "react-icons/fa";
+import { Box, Flex, Image, Button, Text, Spacer } from "@chakra-ui/react";
+import { Toaster, toaster } from "@/components/ui/toaster";
+import { FaTshirt } from "react-icons/fa";
 import {
   NativeSelectField,
   NativeSelectRoot,
@@ -19,13 +12,66 @@ import {
 const RegistrationPage: React.FC = () => {
   const [category, setCategory] = useState("");
   const [color, setColor] = useState("");
+  const [image, setImage] = useState("/item-image.png"); // 仮の画像URL
 
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCategory(e.target.value);
+    setCategory(e.target.value); // カテゴリーを更新
   };
 
   const handleColorChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setColor(e.target.value);
+    setColor(e.target.value); // カラーを更新
+  };
+
+  const handleSave = async () => {
+    if (!category || !color) {
+      toaster.create({
+        title: "Validation Error",
+        description: "Please select both category and color.",
+        type: "error",
+      });
+      return;
+    }
+
+    const payload = {
+      image, // 画像URL（AWS S3のURLに置き換える）
+      categoryTag: category,
+      colorTag: color,
+    };
+
+    try {
+      const response = await fetch("/api/items", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (response.ok) {
+        toaster.create({
+          title: "Success",
+          description: "Item saved successfully.",
+          type: "success",
+        });
+        // フォームをリセット
+        setCategory("");
+        setColor("");
+      } else {
+        const errorData = await response.json();
+        toaster.create({
+          title: "Error",
+          description: errorData.message || "Failed to save item.",
+          type: "error",
+        });
+      }
+    } catch (error) {
+      console.error("Error saving item:", error);
+      toaster.create({
+        title: "Network Error",
+        description: "Unable to save item. Please try again later.",
+        type: "error",
+      });
+    }
   };
 
   return (
@@ -76,14 +122,12 @@ const RegistrationPage: React.FC = () => {
           </Text>
           <NativeSelectRoot size="sm" width="240px">
             <NativeSelectField
-              placeholder="select tags"
+              placeholder="アイテムの種類を選択してください"
               value={category}
               onChange={handleCategoryChange}
             >
-              <option value="top">Top</option>
-              <option value="bottom">Bottom</option>
-              <option value="outer">Outer</option>
-              <option value="one piece">Accessory</option>
+              <option value="tops">トップス</option>
+              <option value="bottoms">ボトムス</option>
             </NativeSelectField>
           </NativeSelectRoot>
         </Box>
@@ -95,15 +139,21 @@ const RegistrationPage: React.FC = () => {
           </Text>
           <NativeSelectRoot size="sm" width="240px">
             <NativeSelectField
-              placeholder="select tags"
+              placeholder="メインの色を選択してください"
               value={color}
               onChange={handleColorChange}
             >
-              <option value="red">Red</option>
-              <option value="blue">Blue</option>
-              <option value="green">Green</option>
-              <option value="yellow">Yellow</option>
-              <option value="black">Black</option>
+              <option value="white">ホワイト</option>
+              <option value="black">ブラック</option>
+              <option value="brown">ブラウン</option>
+              <option value="navy">ネイビー</option>
+              <option value="beige">ベージュ</option>
+              <option value="khaki">カーキ</option>
+              <option value="red">レッド</option>
+              <option value="blue">ブルー</option>
+              <option value="yellow">イエロー</option>
+              <option value="purple">パープル</option>
+              <option value="pink">ピンク</option>
             </NativeSelectField>
           </NativeSelectRoot>
         </Box>
@@ -120,31 +170,6 @@ const RegistrationPage: React.FC = () => {
       </Box>
 
       <Spacer />
-
-      {/* Bottom Navigation */}
-      <Box
-        w="100%"
-        bg="yellow.300"
-        p={4}
-        display="flex"
-        justifyContent="space-around"
-        alignItems="center"
-        borderTopRadius="xl"
-        mt={8}
-      >
-        <IconButton aria-label="home" fontSize="2xl" bg="transparent">
-          <FaHome />
-        </IconButton>
-        <IconButton aria-label="camera" fontSize="2xl" bg="transparent">
-          <FaCamera />
-        </IconButton>
-        <IconButton aria-label="closet" fontSize="2xl" bg="transparent">
-          <FaTshirt />
-        </IconButton>
-        <IconButton aria-label="setting" fontSize="2xl" bg="transparent">
-          <FaCog />
-        </IconButton>
-      </Box>
     </Box>
   );
 };
