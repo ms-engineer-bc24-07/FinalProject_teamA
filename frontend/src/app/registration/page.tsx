@@ -122,14 +122,12 @@ const RegistrationPage: React.FC = () => {
           </Text>
           <NativeSelectRoot size="sm" width="240px">
             <NativeSelectField
-              placeholder="select tags"
+              placeholder="アイテムの種類を選択してください"
               value={category}
               onChange={handleCategoryChange}
             >
-              <option value="top">Top</option>
-              <option value="bottom">Bottom</option>
-              <option value="outer">Outer</option>
-              <option value="one piece">OnePiece</option>
+              <option value="tops">トップス</option>
+              <option value="bottoms">ボトムス</option>
             </NativeSelectField>
           </NativeSelectRoot>
         </Box>
@@ -141,21 +139,21 @@ const RegistrationPage: React.FC = () => {
           </Text>
           <NativeSelectRoot size="sm" width="240px">
             <NativeSelectField
-              placeholder="select tags"
+              placeholder="メインの色を選択してください"
               value={color}
               onChange={handleColorChange}
             >
-              <option value="ホワイト">Red</option>
-              <option value="ブラック">Blue</option>
-              <option value="ブラウン">Green</option>
-              <option value="ネイビー">Yellow</option>
-              <option value="ベージュ">Black</option>
-              <option value="カーキ">Black</option>
-              <option value="レッド">Black</option>
-              <option value="ブルー">Black</option>
-              <option value="イエロー">Black</option>
-              <option value="パープル">Black</option>
-              <option value="ピンク">Black</option>
+              <option value="white">ホワイト</option>
+              <option value="black">ブラック</option>
+              <option value="brown">ブラウン</option>
+              <option value="navy">ネイビー</option>
+              <option value="beige">ベージュ</option>
+              <option value="khaki">カーキ</option>
+              <option value="red">レッド</option>
+              <option value="blue">ブルー</option>
+              <option value="yellow">イエロー</option>
+              <option value="purple">パープル</option>
+              <option value="pink">ピンク</option>
             </NativeSelectField>
           </NativeSelectRoot>
         </Box>
