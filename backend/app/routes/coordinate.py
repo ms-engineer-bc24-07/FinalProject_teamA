@@ -1,3 +1,5 @@
+# コーデ提案画面とコーデ決定ボタン
+
 # from flask import Blueprint
 
 # coordinate_bp = Blueprint("coordinate_bp", __name__)
@@ -13,11 +15,9 @@ from flask import Blueprint, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_mysqldb import MySQL
 from app.services.ai_recommender import generate_outfit, parse_outfit_response
-# import MySQLdb.cursors
 
 coordinate_bp = Blueprint("coordinate_bp", __name__)
 
-# MySQL の設定
 # mysql = MySQL()
 db = SQLAlchemy()
 
@@ -35,8 +35,6 @@ class Coordinate(db.Model):
 @coordinate_bp.route('/recommend', methods=['POST'])
 def recommend_coordinate():
     data = request.get_json()
-    tops = data.get('tops')
-    bottoms = data.get('bottoms')
     
 # コーディネート提案のロジックを実装
     generated_outfit = generate_outfit(tops, bottoms)
@@ -67,18 +65,11 @@ def coordinate():
     new_coordinate = Coordinate(tops_image=tops_image, bottoms_image=bottoms_image, date=date)
     db.session.add(new_coordinate)
     db.session.commit()
-    
-    # cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    # cursor.execute('''
-    #     INSERT INTO coordinates (tops_image, bottoms_image, date)
-    #     VALUES (%s, %s, %s)
-    # ''', (tops_image, bottoms_image, date))
-    # mysql.connection.commit()
-    # cursor.close()
-
+ 
     response = {
         "tops-image": tops_image,
         "bottoms-image": bottoms_image,
     }
 
     return jsonify(response), 200
+
