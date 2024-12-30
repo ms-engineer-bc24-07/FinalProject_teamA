@@ -7,13 +7,14 @@ openai.api_key = Config.OPENAI_API_KEY
 
 def generate_outfit(tops, bottoms):
     prompt = f"""
-    トップス: {[tops['color'] for tops in tops]}
-    ボトムス: {[bottoms['color'] for bottoms in bottoms]}
+    tops: {[top['color'] for top in tops]}
+    bottoms: {[bottom['color'] for bottom in bottoms]}
     
     上記のトップスとボトムスの中から、色が重複しないようにコーディネートを1つ提案してください。
+    色は、white、black, brown, khaki, navy, beige, red, blue, yellow, purple, green, pinkの中で選びます。
     回答は以下の形式で返してください：
-    トップス: [色]
-    ボトムス: [色]
+    tops: [color]
+    bottoms: [color]
     """
 
     response = openai.Completion.create(

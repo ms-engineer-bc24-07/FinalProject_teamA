@@ -3,6 +3,7 @@ from flask import Blueprint, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_mysqldb import MySQL
 
+
 users_bp = Blueprint("users_bp", __name__)
 
 db = SQLAlchemy()

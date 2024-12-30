@@ -10,9 +10,9 @@ from urllib.parse import unquote
 
 app = Flask(__name__)
 app.config.from_object(Config)
-CORS(app)  # すべてのオリジンからのリクエストを許可
 
 db.init_app(app)
+CORS(app)  # すべてのオリジンからのリクエストを許可
 
 # プロジェクトルートの画像フォルダパス
 IMAGE_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../photo'))
