@@ -6,6 +6,11 @@ app = Flask(__name__)
 # プロジェクトルートの画像フォルダパス
 IMAGE_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'photo')
 
+# ルートパスにアクセスしたときの処理
+@app.route('/')
+def home():
+    return 'Welcome to the Outfit API!'
+
 @app.route('/images/<path:filename>')
 def serve_image(filename):
     return send_from_directory(IMAGE_FOLDER, filename)
