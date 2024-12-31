@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import React, { useRef, useState, useEffect } from 'react';
-import { Box, Button, Flex, IconButton, Image } from '@chakra-ui/react';
-import { Camera } from 'lucide-react';
-import { useRouter} from 'next/navigation';
-import { Link } from '@chakra-ui/react';
+import React, { useRef, useState, useEffect } from "react";
+import { Box, Button, Flex, IconButton, Image } from "@chakra-ui/react";
+import { Camera } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Link } from "@chakra-ui/react";
 
 export default function CameraPage() {
   const [isPhotoTaken, setIsPhotoTaken] = useState(false);
@@ -17,9 +17,15 @@ export default function CameraPage() {
   useEffect(() => {
     setIsClient(true);
     const initializeCamera = async () => {
-      if (typeof navigator !== 'undefined' && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      if (
+        typeof navigator !== "undefined" &&
+        navigator.mediaDevices &&
+        navigator.mediaDevices.getUserMedia
+      ) {
         try {
-          const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+          const stream = await navigator.mediaDevices.getUserMedia({
+            video: true,
+          });
           if (videoRef.current) {
             videoRef.current.srcObject = stream;
           }
@@ -34,19 +40,25 @@ export default function CameraPage() {
     return () => {
       if (videoRef.current && videoRef.current.srcObject) {
         const tracks = (videoRef.current.srcObject as MediaStream).getTracks();
-        tracks.forEach(track => track.stop());
+        tracks.forEach((track) => track.stop());
       }
     };
   }, []);
 
   const handleCapture = () => {
     if (videoRef.current && canvasRef.current) {
-      const context = canvasRef.current.getContext('2d');
+      const context = canvasRef.current.getContext("2d");
       if (context) {
         canvasRef.current.width = videoRef.current.videoWidth;
         canvasRef.current.height = videoRef.current.videoHeight;
-        context.drawImage(videoRef.current, 0, 0, canvasRef.current.width, canvasRef.current.height);
-        const imageDataUrl = canvasRef.current.toDataURL('image/png');
+        context.drawImage(
+          videoRef.current,
+          0,
+          0,
+          canvasRef.current.width,
+          canvasRef.current.height
+        );
+        const imageDataUrl = canvasRef.current.toDataURL("image/png");
         setCapturedImage(imageDataUrl);
         setIsPhotoTaken(true);
       }
@@ -57,7 +69,9 @@ export default function CameraPage() {
     if (capturedImage) {
       try {
         const encodedImage = encodeURIComponent(capturedImage);
-        console.log(`Navigating to: /registration?capturedImage=${encodedImage}`);
+        console.log(
+          `Navigating to: /registration?capturedImage=${encodedImage}`
+        );
         router.push(`/registration?capturedImage=${encodedImage}`);
       } catch (error) {
         console.error("Error navigating to registration page:", error);
@@ -76,7 +90,12 @@ export default function CameraPage() {
 
   return (
     <Box p={8}>
-      <Flex direction="column" alignItems="center" justifyContent="center" h="100vh">
+      <Flex
+        direction="column"
+        alignItems="center"
+        justifyContent="center"
+        h="100vh"
+      >
         <IconButton
           aria-label="Capture photo"
           variant="ghost"
@@ -84,25 +103,26 @@ export default function CameraPage() {
         >
           <Camera />
         </IconButton>
-        <video ref={videoRef} autoPlay style={{ width: '100%', maxWidth: '640px' }} />
-        <canvas ref={canvasRef} style={{ display: 'none' }} />
+        <video
+          ref={videoRef}
+          autoPlay
+          style={{ width: "100%", maxWidth: "640px" }}
+        />
+        <canvas ref={canvasRef} style={{ display: "none" }} />
 
         {isPhotoTaken && capturedImage ? (
-            <Image src={capturedImage} alt="Preview" mb={4} />
-            ):(
-        <Link href="/registration">
+          <Image src={capturedImage} alt="Preview" mb={4} />
+        ) : (
+          <Link href="/registration">
             <Button colorScheme="yellow" onClick={handleYesClick} mb={2}>
               OK
             </Button>
             <Button colorScheme="gray" onClick={handleNoClick}>
               again
             </Button>
-            </Link>
-          )}   
+          </Link>
+        )}
       </Flex>
     </Box>
   );
-};
-  
-
-
+}
