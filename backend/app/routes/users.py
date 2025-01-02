@@ -2,7 +2,7 @@
 from flask import Blueprint, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_mysqldb import MySQL
-
+from sqlalchemy.exc import IntegrityError
 
 users_bp = Blueprint("users_bp", __name__)
 
@@ -26,7 +26,7 @@ def create_user():
     
     # 入力チェック
     if not email :
-        return jsonify({"error": "メールアドレスが必要です"}), 400
+        return jsonify({"error": "メールアドレスが間違っています"}), 400
     
     try:
         new_user = User(
@@ -39,6 +39,10 @@ def create_user():
         db.session.commit()
         
         return jsonify({"message": "ユーザー情報が登録されました"}), 201
+    except IntegrityError:
+        db.session.rollback()
+        return jsonify({"error": "このメールアドレスは既に使用されています。別のメールアドレスを使用してください。"}), 409
+            
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
