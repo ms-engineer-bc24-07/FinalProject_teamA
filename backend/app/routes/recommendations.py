@@ -10,7 +10,7 @@ recommendation_bp = Blueprint('recommendation', __name__)
 def recommend():
     data = request.json
     user_id = data['user_id']
-    tpo = data['tpo']
+    # tpo = data['tpo'] #削除しました
     preferred_colors = data['preferred_colors']
     preferred_tag = data['preferred_tag']
 
