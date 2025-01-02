@@ -3,12 +3,12 @@
 import { Flex, Box } from "@chakra-ui/react";
 import MessageBox from "./components/Outfits/Outfits1/MessageBox";
 import { useState } from "react";
-import { truncateSync } from "fs";
 import Coordinate from "./components/Outfits/Outfits2/Coordinate";
 
 const Outfits1 = () => {
   const [loading, setLoading] = useState<boolean | undefined>(undefined);
-  const [image, setImage] = useState("");
+  const [topsImage, setTopsImage] = useState<string | null>(null);
+  const [bottomsImage, setBottomsImage] = useState<string | null>(null);
 
   const handleClick = async () => {
     try {
@@ -30,17 +30,12 @@ const Outfits1 = () => {
       //   console.error("Failed to fetch recommendations");
       // }
       setLoading(false);
-      setImage(
-        "https://www.urban-research.jp/common/images/products/detail/5/451195/2897417_base.jpg"
-      ), // apiが完成したらfetchしたトップス画像を持ってくる
-        setImage(
-          "https://outlet.bigi.co.jp/photo/2021/B0503AFP091/z-B0503AFP091_001003-1.jpg?1659403888"
-        ); // apiが完成したらfetchしたボトムス画像を持ってくる
+      setTopsImage("photo/002GreenTshirt.png"); // apiが完成したらfetchしたトップス画像を持ってくる
+      setBottomsImage("photo/005BlackJeans.png"); // apiが完成したらfetchしたボトムス画像を持ってくる
     } catch (error) {
       console.error("Error occurred:", error);
     }
   };
-
   if (loading === undefined) {
     return (
       <Flex
@@ -49,7 +44,11 @@ const Outfits1 = () => {
         justifyContent="center" // 横方向の中央揃え
         pt="200px" // 上部の余白を設定
       >
-        <MessageBox clickEvent={handleClick} />
+        {loading === undefined && (
+          <Box paddingTop="10px" paddingBottom="30px">
+            <MessageBox clickEvent={handleClick} />
+          </Box>
+        )}
       </Flex>
     );
   } else if (loading) {
@@ -60,7 +59,7 @@ const Outfits1 = () => {
         justifyContent="center" // 横方向の中央揃え
         pt="200px" // 上部の余白を設定
       >
-        <Box>loading</Box>
+        {loading && <Box paddingTop="80px">loading</Box>}
       </Flex>
     );
   } else {
@@ -71,7 +70,9 @@ const Outfits1 = () => {
         justifyContent="center" // 横方向の中央揃え
         pt="200px" // 上部の余白を設定
       >
-        <Coordinate topsImages={image} />
+        {topsImage && bottomsImage && (
+          <Coordinate topsImage={topsImage} bottomsImage={bottomsImage} />
+        )}
       </Flex>
     );
   }

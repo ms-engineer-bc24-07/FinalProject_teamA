@@ -1,3 +1,4 @@
+"use client";
 import { Box, Button, Text } from "@chakra-ui/react";
 import { For, HStack } from "@chakra-ui/react";
 import {
