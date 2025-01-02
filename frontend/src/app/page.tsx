@@ -13,29 +13,33 @@ const Outfits1 = () => {
   const handleClick = async () => {
     try {
       setLoading(true);
-      // TODO apiが完成したら繋げる
-      // const response = await fetch(
-      //   "http://localhost:5000/api/coordinate/recommend",
-      //   {
-      //     method: "POST",
-      //     headers: { "Content-Type": "application/json" },
-      //   }
-      // );
-
-      // if (response.ok) {
-      //   const data = await response.json();
-      //   localStorage.setItem("outfitRecommendation", JSON.stringify(data));
-      //   setLoading(false);
-      // } else {
-      //   console.error("Failed to fetch recommendations");
-      // }
-      setLoading(false);
-      setTopsImage("photo/002GreenTshirt.png"); // apiが完成したらfetchしたトップス画像を持ってくる
-      setBottomsImage("photo/005BlackJeans.png"); // apiが完成したらfetchしたボトムス画像を持ってくる
+      console.log("handleClick: Loading started");
+      // APIにリクエストを送信して画像URLを取得
+      const response = await fetch(
+        "http://localhost:5000/api/coordinate/recommend",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            request: "recommendation", // 新しいリクエストデータ
+          }),
+        }
+      );
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem("outfitRecommendation", JSON.stringify(data));
+        setTopsImage(data["tops-image"]); // APIから取得したトップスの画像URLを設定
+        setBottomsImage(data["bottoms-image"]); // APIから取得したボトムスの画像URLを設定
+      } else {
+        console.error("Failed to fetch recommendations");
+      }
     } catch (error) {
       console.error("Error occurred:", error);
+    } finally {
+      setLoading(false);
     }
   };
+
   if (loading === undefined) {
     return (
       <Flex
