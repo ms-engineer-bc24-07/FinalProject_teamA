@@ -56,16 +56,6 @@ const Footer = () => {
             </VStack>
           </Box>
         </Link>
-        <Link href={"/setting"}>
-          <Box height="20" width="25" px={2}>
-            <VStack gap="0">
-              <IconButton aria-label="Call support" variant={"ghost"}>
-                <Settings />
-              </IconButton>
-              <Text textStyle="sm">{"Setting"}</Text>
-            </VStack>
-          </Box>
-        </Link>
       </Flex>
     </Box>
   );

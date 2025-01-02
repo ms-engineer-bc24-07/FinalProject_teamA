@@ -153,7 +153,9 @@ const RegistrationPage: React.FC = () => {
               <option value="blue">ブルー</option>
               <option value="yellow">イエロー</option>
               <option value="purple">パープル</option>
+              <option value="green">グリーン</option>
               <option value="pink">ピンク</option>
+              <option value="orange">オレンジ</option>
             </NativeSelectField>
           </NativeSelectRoot>
         </Box>
