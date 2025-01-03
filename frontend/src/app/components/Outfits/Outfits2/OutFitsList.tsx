@@ -1,40 +1,58 @@
 //提案されたコーデのアイテム表示
+"use client";
+import { Box, SimpleGrid, Image } from "@chakra-ui/react";
+import { useState } from "react";
 
-import { Box, Heading, Text, SimpleGrid } from "@chakra-ui/react";
-
-type Outfit = {
-  id: number;
-  name: string;
+type Props = {
+  topsImage?: string;
+  bottomsImage?: string;
 };
 
-const outfits: Outfit[] = [
-  { id: 1, name: "アイテム１" },
-  { id: 2, name: "アイテム２" },
-  // { id: 3, name: 'Outfit 3', description: 'A sporty look for active days.' },
-];
-
-const OutfitList = () => {
+const OutFitsList: React.FC<Props> = ({
+  topsImage,
+  bottomsImage,
+  ...props
+}) => {
   return (
-    <Box p={4}>
-      <SimpleGrid columns={{ base: 1, md: 3 }} gap={4}>
-        {outfits.map((outfit) => (
+    <Box p={9}>
+      <SimpleGrid columns={{ base: 1, md: 4 }} gap={3}>
+        {topsImage && (
           <Box
-            key={outfit.id}
-            p={4}
+            p={2}
             borderWidth="1px"
             borderRadius="lg"
             bg="gray.100"
             boxShadow="md"
             _hover={{ boxShadow: "lg" }}
           >
-            <Heading as="h3" size="md" mb={2}>
-              {outfit.name}
-            </Heading>
+            <Image
+              src={topsImage}
+              alt="Today's tops"
+              aspectRatio={4 / 3}
+              width="300px"
+            />
           </Box>
-        ))}
+        )}
+        {bottomsImage && (
+          <Box
+            p={2}
+            borderWidth="1px"
+            borderRadius="lg"
+            bg="gray.100"
+            boxShadow="md"
+            _hover={{ boxShadow: "lg" }}
+          >
+            <Image
+              src={bottomsImage}
+              alt="Today's bottoms"
+              aspectRatio={4 / 3}
+              width="300px"
+            />
+          </Box>
+        )}
       </SimpleGrid>
     </Box>
   );
 };
 
-export default OutfitList;
+export default OutFitsList;
