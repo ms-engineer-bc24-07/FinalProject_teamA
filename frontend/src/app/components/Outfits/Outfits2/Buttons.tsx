@@ -44,7 +44,7 @@ const Buttons = () => {
         <DialogTrigger asChild>
           <Button
             bg="teal.500"
-            color="white"
+            color="yellow.50"
             _hover={{ bg: "teal.600" }}
             px={6} // 横のパディング
             py={3} // 縦のパディング
@@ -81,7 +81,7 @@ const Buttons = () => {
       {/* CHANGE ボタン */}
       <Button
         bg="teal.500"
-        color="white"
+        color="yellow.50"
         _hover={{ bg: "teal.600" }}
         px={6} // 横のパディング
         py={3} // 縦のパディング
