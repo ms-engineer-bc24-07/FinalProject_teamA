@@ -99,10 +99,10 @@ export default function SignupCard() {
               <Link href={"/"}>
                 <Button
                   size="lg"
-                  bg={"blue.400"}
+                  bg={"teal.500"}
                   color={"white"}
                   _hover={{
-                    bg: "blue.500",
+                    bg: "teal.300",
                   }}
                 >
                   ログインする
@@ -112,10 +112,10 @@ export default function SignupCard() {
             <Stack padding={10} pt={2}>
               <Button
                 size="lg"
-                bg={"blue.400"}
+                bg={"teal.500"}
                 color={"white"}
                 _hover={{
-                  bg: "blue.500",
+                  bg: "teal.300",
                 }}
               >
                 新規登録する

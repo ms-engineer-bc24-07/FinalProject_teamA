@@ -233,7 +233,7 @@ const RegistrationPage: React.FC = () => {
                 colorPalette="teal"
                 color="yellow50" // テキスト色
                 fontWeight="650" // 文字の太さを指定
-                _hover={{ bg: "teal.600" }} // ホバー時の背景色
+                _hover={{ bg: "teal.300" }} // ホバー時の背景色
                 rounded="lg" // 角丸
               >
                 OK
@@ -266,7 +266,7 @@ const RegistrationPage: React.FC = () => {
             colorPalette="teal"
             color="yellow50" // テキスト色
             fontWeight="650" // 文字の太さを指定
-            _hover={{ bg: "teal.600" }} // ホバー時の背景色
+            _hover={{ bg: "teal.300" }} // ホバー時の背景色
             rounded="lg" // 角丸
           >
             BACK

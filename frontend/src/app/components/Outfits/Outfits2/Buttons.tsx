@@ -45,7 +45,7 @@ const Buttons = () => {
           <Button
             bg="teal.500"
             color="yellow.50"
-            _hover={{ bg: "teal.600" }}
+            _hover={{ bg: "teal.300" }}
             px={6} // 横のパディング
             py={3} // 縦のパディング
             borderRadius="md"
@@ -82,7 +82,7 @@ const Buttons = () => {
       <Button
         bg="teal.500"
         color="yellow.50"
-        _hover={{ bg: "teal.600" }}
+        _hover={{ bg: "teal.300" }}
         px={6} // 横のパディング
         py={3} // 縦のパディング
         borderRadius="md"

@@ -22,7 +22,7 @@ const MessageBox: React.FC<Props> = ({ clickEvent, ...props }) => {
           color="yellow50" // テキスト色
           fontWeight="650" // 文字の太さを指定
           letterSpacing="3px" // 文字の幅を指定
-          _hover={{ bg: "teal.600" }} // ホバー時の背景色
+          _hover={{ bg: "teal.300" }} // ホバー時の背景色
           px={10} // パディングX
           py={8} // パディングYs
           rounded="lg" // 角丸
