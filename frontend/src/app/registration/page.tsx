@@ -1,18 +1,30 @@
+// // // 202501031221
 "use client"; // Next.jsでクライアントコンポーネント指定
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Flex, Image, Button, Text, Spacer } from "@chakra-ui/react";
 import { Toaster, toaster } from "@/components/ui/toaster";
 import { FaTshirt } from "react-icons/fa";
-import {
-  NativeSelectField,
-  NativeSelectRoot,
-} from "@/components/ui/native-select";
+import { NativeSelectField, NativeSelectRoot } from "@/components/ui/native-select";
 
 const RegistrationPage: React.FC = () => {
   const [category, setCategory] = useState("");
   const [color, setColor] = useState("");
-  const [itemImageURL, setItemImageURL] = useState("/item-itemImageURL.png"); // 仮の画像URL
+  const [itemImageURL, setItemImageURL] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);  // ローディング状態を追加
+
+  // セッションストレージから画像を取得するための useEffect フック
+  useEffect(() => {
+    const loadImage = async () => {
+      const capturedImage = sessionStorage.getItem("capturedImage");
+      console.log("Captured image from session storage:", capturedImage); // ログ出力で確認
+      if (capturedImage) {
+        setItemImageURL(capturedImage);
+      }
+      setLoading(false);  // データ取得後にローディング状態を解除
+    };
+    loadImage();
+  }, []);
 
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setCategory(e.target.value); // カテゴリーを更新
@@ -39,7 +51,7 @@ const RegistrationPage: React.FC = () => {
     };
 
     try {
-      const response = await fetch("/api/items", {
+      const response = await fetch("/api/registration/upload", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -48,6 +60,8 @@ const RegistrationPage: React.FC = () => {
       });
 
       if (response.ok) {
+        const data = await response.json();
+        setItemImageURL(data.filename); // S3のURLを設定
         toaster.create({
           title: "Success",
           description: "Item saved successfully.",
@@ -74,6 +88,10 @@ const RegistrationPage: React.FC = () => {
     }
   };
 
+  if (loading) {
+    return <Text>Loading...</Text>;  // ローディング中の表示
+  }
+
   return (
     <Box
       p={4}
@@ -86,7 +104,7 @@ const RegistrationPage: React.FC = () => {
       {/* Header */}
       <Box mb={4} textAlign="center">
         <Text fontSize="2xl" fontWeight="bold" textTransform="uppercase">
-          registration
+          Registration
         </Text>
       </Box>
 
@@ -105,20 +123,23 @@ const RegistrationPage: React.FC = () => {
           <FaTshirt size={36} />
         </Box>
 
-        {/* Item itemImageURL */}
-        <Image
-          src="/item-itemImageURL.png" // アイテム画像のパス（publicフォルダ内）
-          alt="Item"
-          borderRadius="md"
-          boxSize="200px"
-          mx="auto"
-          mb={6}
-        />
-
+        {/* Item Image */}
+        {itemImageURL ? (
+          <Image
+            src={itemImageURL} // キャプチャされた画像のURL
+            alt="Item"
+            borderRadius="md"
+            boxSize="200px"
+            mx="auto"
+            mb={6}
+          />
+        ) : (
+          <Text>No Image</Text>
+        )}
         {/* Category Selection */}
         <Box mb={4}>
           <Text fontSize="sm" fontWeight="semibold" mb={2}>
-            category
+            Category
           </Text>
           <NativeSelectRoot size="sm" width="240px">
             <NativeSelectField
@@ -135,7 +156,7 @@ const RegistrationPage: React.FC = () => {
         {/* Color Selection */}
         <Box mb={6}>
           <Text fontSize="sm" fontWeight="semibold" mb={2}>
-            color
+            Color
           </Text>
           <NativeSelectRoot size="sm" width="240px">
             <NativeSelectField
@@ -162,11 +183,11 @@ const RegistrationPage: React.FC = () => {
 
         {/* Buttons */}
         <Flex justify="center" gap={4}>
-          <Button colorScheme="yellow" w="40%">
+          <Button colorScheme="yellow" w="40%" onClick={handleSave}>
             OK
           </Button>
           <Button colorScheme="gray" w="40%">
-            back
+            Back
           </Button>
         </Flex>
       </Box>

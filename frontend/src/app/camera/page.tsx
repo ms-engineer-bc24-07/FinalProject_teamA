@@ -6,7 +6,7 @@ import { Camera } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Link } from "@chakra-ui/react";
 
-export default function CameraPage() {
+const CameraPage: React.FC = () => {
   const [isPhotoTaken, setIsPhotoTaken] = useState(false);
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -67,15 +67,9 @@ export default function CameraPage() {
 
   const handleYesClick = () => {
     if (capturedImage) {
-      try {
-        const encodedImage = encodeURIComponent(capturedImage);
-        console.log(
-          `Navigating to: /registration?capturedImage=${encodedImage}`
-        );
-        router.push(`/registration?capturedImage=${encodedImage}`);
-      } catch (error) {
-        console.error("Error navigating to registration page:", error);
-      }
+      // 画像データをセッションストレージに保存
+      sessionStorage.setItem("capturedImage", capturedImage);
+      router.push(`/registration`);
     }
   };
 
@@ -96,13 +90,9 @@ export default function CameraPage() {
         justifyContent="center"
         h="100vh"
       >
-        <IconButton
-          aria-label="Capture photo"
-          variant="ghost"
-          onClick={handleCapture}
-        >
-          <Camera />
-        </IconButton>
+        <Button colorScheme="blue" onClick={handleCapture} mb={2}>
+          撮影
+        </Button>
         <video
           ref={videoRef}
           autoPlay
@@ -125,4 +115,7 @@ export default function CameraPage() {
       </Flex>
     </Box>
   );
-}
+};
+
+export default CameraPage;
+

@@ -9,7 +9,7 @@ from app.routes.items import items_bp
 from app.routes.main import main
 from app.routes.users import users_bp
 from app.routes.coordinate import coordinate_bp
-from app.routes.users import db, User
+from app.routes.registration import registration_bp  # 追加
 from dotenv import load_dotenv
 from app.utils.db import db
 
@@ -20,20 +20,19 @@ s3 = None
 
 def create_app():
     app = Flask(__name__)
-    CORS(app)
+    CORS(app)  # CORSの設定を追加
     app.config.from_object(Config)
 
-    db.init_app(app)  # SQL Alchemyデータベースを初期化
-    migrate = Migrate(app, db) # Flask-Migrateを初期化
+    db.init_app(app)  # SQLAlchemyデータベースを初期化
+    migrate = Migrate(app, db)  # Flask-Migrateを初期化
     
     # 環境変数を読み込んだ直後に値を確認
     print("AWS_REGION:", app.config['AWS_REGION'])
     print("AWS_ACCESS_KEY_ID:", app.config['AWS_ACCESS_KEY_ID'])
     print("AWS_SECRET_ACCESS_KEY:", app.config['AWS_SECRET_ACCESS_KEY'])
     print("S3_BUCKET_NAME:", app.config['S3_BUCKET_NAME'])
-    print("DB_HOST:", app.config.get('DB_HOST')) 
-    
-    
+    print("DB_HOST:", app.config.get('DB_HOST'))
+
     # S3クライアントの初期化
     global s3
     s3 = boto3.client('s3',
@@ -50,6 +49,7 @@ def create_app():
         app.register_blueprint(items_bp, url_prefix="/api/items")
         app.register_blueprint(coordinate_bp, url_prefix="/api/coordinate")
         app.register_blueprint(users_bp, url_prefix="/api/users")
+        app.register_blueprint(registration_bp, url_prefix="/api/registration")  # 追加
 
     @app.route('/')
     def index():

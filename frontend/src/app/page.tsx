@@ -21,10 +21,11 @@ const Outfits1 = () => {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            request: "recommendation", // 新しいリクエストデータ
-          }),
+            "request": "recommendation" // 新しいリクエストデータ
+          })
         }
       );
+
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem("outfitRecommendation", JSON.stringify(data));
@@ -83,3 +84,4 @@ const Outfits1 = () => {
 };
 
 export default Outfits1;
+
