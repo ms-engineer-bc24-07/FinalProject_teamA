@@ -1,5 +1,3 @@
-// // 202501031224コメントアウトしました
-
 "use client";
 
 import { Tabs, Link, Box, SimpleGrid, Image } from "@chakra-ui/react";
@@ -69,58 +67,3 @@ const Closet = () => {
 };
 
 export default Closet;
-
-// // registrationで画像データをS3にアップロードし、アップロード完了後に closet ページにリダイレクトするロジックを追加し、
-// // closet ページでクエリパラメータから画像URLを受け取り、その画像を表示するようにします。
-// "use client";
-
-// import { Tabs, Link, Box, Image } from "@chakra-ui/react";
-// import { useState, useEffect } from "react";
-// import { useRouter } from "next/router"; // useRouterフックを使用
-
-// const Closet: React.FC = () => {
-//   const [currentCategory, setCurrentCategory] = useState<string>("tops");
-//   const [image, setImage] = useState<string>("");
-//   const [items, setItems] = useState<{ categoryTag: string; name: string }[]>([]); // カテゴリー問わずアイテム全て
-//   const [filteredItems, setFilteredItems] = useState<{ categoryTag: string; name: string }[]>([]); // カテゴリー別に表示するアイテム
-//   const router = useRouter(); // useRouterフックを使用
-
-//   useEffect(() => {
-//     const { query } = router;
-//     if (query.imageUrl) {
-//       setImage(query.imageUrl as string);
-//     }
-//   }, [router]);
-
-//   useEffect(() => {
-//     const filtered = items.filter((item) => item.categoryTag === currentCategory);
-//     setFilteredItems(filtered);
-//   }, [currentCategory, items]);
-
-//   return (
-//     <Box>
-//       <Tabs.Root defaultValue="tops">
-//         <Tabs.List>
-//           <Tabs.Trigger value="tops" asChild>
-//             <Link unstyled href="#tops">
-//               トップス
-//             </Link>
-//           </Tabs.Trigger>
-//           <Tabs.Trigger value="bottoms" asChild>
-//             <Link unstyled href="#bottoms">
-//               ボトムス
-//             </Link>
-//           </Tabs.Trigger>
-//         </Tabs.List>
-//         <Tabs.Content value="tops">
-//           <Image src={image} alt="Tops" />
-//         </Tabs.Content>
-//         <Tabs.Content value="bottoms">
-//           <Image src={image} alt="Bottoms" />
-//         </Tabs.Content>
-//       </Tabs.Root>
-//     </Box>
-//   );
-// };
-
-// export default Closet;

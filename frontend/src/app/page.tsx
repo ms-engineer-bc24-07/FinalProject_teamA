@@ -1,5 +1,5 @@
-"use client"; // Next.jsでクライアントコンポーネント指定
-
+//ホーム画面
+"use client";
 import { Flex, Box } from "@chakra-ui/react";
 import MessageBox from "./components/Outfits/Outfits1/MessageBox";
 import { useState } from "react";
@@ -49,9 +49,11 @@ const Outfits1 = () => {
         justifyContent="center" // 横方向の中央揃え
         pt="200px" // 上部の余白を設定
       >
-        <Box paddingTop="10px" paddingBottom="30px">
-          <MessageBox clickEvent={handleClick} />
-        </Box>
+        {loading === undefined && (
+          <Box paddingTop="10px" paddingBottom="30px">
+            <MessageBox clickEvent={handleClick} />
+          </Box>
+        )}
       </Flex>
     );
   } else if (loading) {
@@ -62,7 +64,7 @@ const Outfits1 = () => {
         justifyContent="center" // 横方向の中央揃え
         pt="200px" // 上部の余白を設定
       >
-        <Box paddingTop="80px">loading</Box>
+        {loading && <Box paddingTop="80px">loading</Box>}
       </Flex>
     );
   } else {
@@ -73,10 +75,8 @@ const Outfits1 = () => {
         justifyContent="center" // 横方向の中央揃え
         pt="200px" // 上部の余白を設定
       >
-        {topsImage && bottomsImage ? (
+        {topsImage && bottomsImage && (
           <Coordinate topsImage={topsImage} bottomsImage={bottomsImage} />
-        ) : (
-          <MessageBox clickEvent={handleClick} />
         )}
       </Flex>
     );

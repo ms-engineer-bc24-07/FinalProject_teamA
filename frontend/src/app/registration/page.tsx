@@ -136,7 +136,6 @@ const RegistrationPage: React.FC = () => {
         ) : (
           <Text>No Image</Text>
         )}
-
         {/* Category Selection */}
         <Box mb={4}>
           <Text fontSize="sm" fontWeight="semibold" mb={2}>
