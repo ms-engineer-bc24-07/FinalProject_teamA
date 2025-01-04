@@ -10,6 +10,7 @@ from app.routes.main import main
 from app.routes.users import users_bp
 from app.routes.coordinate import coordinate_bp
 from app.routes.registration import registration_bp  # 追加
+from app.routes.closet import closet_bp
 from dotenv import load_dotenv
 from app.utils.db import db
 
@@ -50,6 +51,8 @@ def create_app():
         app.register_blueprint(coordinate_bp, url_prefix="/api/coordinate")
         app.register_blueprint(users_bp, url_prefix="/api/users")
         app.register_blueprint(registration_bp, url_prefix="/api/registration")  # 追加
+        app.register_blueprint(closet_bp, url_prefix="/api/closet")       
+        
 
     @app.route('/')
     def index():

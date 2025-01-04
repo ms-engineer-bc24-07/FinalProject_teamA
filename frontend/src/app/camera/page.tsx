@@ -1,10 +1,9 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import { Box, Button, Flex, IconButton, Image } from "@chakra-ui/react";
+import { Box, Button, Flex, IconButton, Image, Text as ChakraText } from "@chakra-ui/react";
 import { Camera } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { Link } from "@chakra-ui/react";
 
 const CameraPage: React.FC = () => {
   const [isPhotoTaken, setIsPhotoTaken] = useState(false);
@@ -101,16 +100,17 @@ const CameraPage: React.FC = () => {
         <canvas ref={canvasRef} style={{ display: "none" }} />
 
         {isPhotoTaken && capturedImage ? (
-          <Image src={capturedImage} alt="Preview" mb={4} />
-        ) : (
-          <Link href="/registration">
+          <>
+            <Image src={capturedImage} alt="Preview" mb={4} />
             <Button colorScheme="yellow" onClick={handleYesClick} mb={2}>
               OK
             </Button>
             <Button colorScheme="gray" onClick={handleNoClick}>
               again
             </Button>
-          </Link>
+          </>
+        ) : (
+          isPhotoTaken && <ChakraText>画面がキャプチャされませんでした</ChakraText>
         )}
       </Flex>
     </Box>

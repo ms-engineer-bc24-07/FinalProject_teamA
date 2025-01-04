@@ -1,69 +1,59 @@
 "use client";
 
-import { Tabs, Link, Box, SimpleGrid, Image } from "@chakra-ui/react";
-import { image } from "framer-motion/client";
+import { Box, Button, SimpleGrid, Image } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 
 const Closet = () => {
-  const [currentCategory, setCurrentCategory] = useState<string>("tops");
-  const [image, setImage] = useState<string>("");
-  const [items, setItems] = useState<{ categoryTag: string; name: string }[]>(
-    []
-  ); // カテゴリー問わずアイテム全て
-  const [filteredItems, setFilteredItems] = useState<
-    { categoryTag: string; name: string }[]
-  >([]); // カテゴリー別に表示するアイテム
+  const [currentCategory, setCurrentCategory] = useState<string>("all");
+  const [items, setItems] = useState<{ categoryTag: string; imageUrl: string }[]>([]); 
+  const [filteredItems, setFilteredItems] = useState<{ categoryTag: string; imageUrl: string }[]>([]);
 
-  // TODO api完成したら繋げる。カテゴリー変更時に画像を更新
-  // useEffect(() => {
-  //   // APIからデータを取得する場合
-  //   fetch("/api/items")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setItems(data.items);
-  //     })
-  //     .catch((error) => console.error("Error fetching items:", error));
-  // }, []);
-
-  // カテゴリーが変更されたときにフィルタリング
   useEffect(() => {
-    const filtered = items.filter(
-      (item) => item.categoryTag === currentCategory
-    );
-    setFilteredItems(filtered);
+    const fetchItems = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/closet/items");
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setItems(data);
+      } catch (error) {
+        console.error("Error fetching items:", error);
+        alert(`Error fetching items: ${error.message}`);
+      }
+    };
 
-    // ここでカテゴリーに基づいて画像を変更
-    setImage("https://item-shopping.c.yimg.jp/i/n/t-shirtstore_cbtyxh500101"),
-      // apiが完成したらfetchしたトップス画像を持ってくる
-      setImage(
-        "https://image.plst.com/PL/ST3/jp/imagesgoods/706719/item/jpgoods_38_706719.jpg"
-      ); // apiが完成したらfetchしたボトムス画像を持ってくる
+    fetchItems();
+  }, []);
+
+  useEffect(() => {
+    if (currentCategory === "all") {
+      setFilteredItems(items);
+    } else {
+      const filtered = items.filter(
+        (item) => item.categoryTag === currentCategory
+      );
+      setFilteredItems(filtered);
+    }
   }, [currentCategory, items]);
 
   return (
     <Box>
-      <Tabs.Root defaultValue="tops">
-        <Tabs.List>
-          <Tabs.Trigger value="tops" asChild>
-            <Link unstyled href="#tops">
-              トップス
-            </Link>
-          </Tabs.Trigger>
-          <Tabs.Trigger value="bottoms" asChild>
-            <Link unstyled href="#bottoms">
-              ボトムス
-            </Link>
-          </Tabs.Trigger>
-        </Tabs.List>
-        <Tabs.Content value="tops">
-          <Image src={image} alt="Tops" />
-        </Tabs.Content>
-        <Tabs.Content value="bottoms">
-          <Image src={image} alt="Bottoms" />
-        </Tabs.Content>
-      </Tabs.Root>
+      <Box display="flex" justifyContent="center" mb={4}>
+        <Button mr={2} onClick={() => setCurrentCategory("all")}>すべて</Button>
+        <Button mr={2} onClick={() => setCurrentCategory("tops")}>トップス</Button>
+        <Button onClick={() => setCurrentCategory("bottoms")}>ボトムス</Button>
+      </Box>
+      <SimpleGrid columns={3} gap={4}>
+        {filteredItems.map((item, index) => (
+          <Image key={index} src={item.imageUrl} alt={`${item.categoryTag} ${index + 1}`} />
+        ))}
+      </SimpleGrid>
     </Box>
   );
 };
 
 export default Closet;
+
+
+
