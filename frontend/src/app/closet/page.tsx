@@ -79,6 +79,12 @@ const Closet = () => {
         onValueChange={(details) => setCurrentCategory(details.value)}
       >
         <Tabs.List>
+          {/* ゆかりんさんへ:"allItems" は仮で入れただけなので、良いように修正お願いします。 */}
+          <Tabs.Trigger value="allItems" asChild>
+            <Link unstyled href="#allItems">
+              すべて
+            </Link>
+          </Tabs.Trigger>
           <Tabs.Trigger value="tops" asChild>
             <Link unstyled href="#tops">
               トップス
@@ -90,6 +96,9 @@ const Closet = () => {
             </Link>
           </Tabs.Trigger>
         </Tabs.List>
+        <Tabs.Content value="allItems">
+          <Image src={image} alt="AllItems" />
+        </Tabs.Content>
         <Tabs.Content value="tops">
           <Image src={image} alt="Tops" />
         </Tabs.Content>

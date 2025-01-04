@@ -184,7 +184,7 @@ const RegistrationPage: React.FC = () => {
           </Text>
           <NativeSelectRoot size="xs" width="210px" alignItems="center">
             <NativeSelectField
-              placeholder="アイテムの種類を選択してください"
+              placeholder="アイテムの種類を選択"
               value={category}
               onChange={handleCategoryChange}
               textOverflow="ellipsis"
@@ -202,7 +202,7 @@ const RegistrationPage: React.FC = () => {
           </Text>
           <NativeSelectRoot size="xs" width="210px">
             <NativeSelectField
-              placeholder="メインの色を選択してください"
+              placeholder="メインの色を選択"
               value={color}
               onChange={handleColorChange}
             >
