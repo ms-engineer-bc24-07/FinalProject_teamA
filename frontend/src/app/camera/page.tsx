@@ -1,7 +1,14 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import { Box, Button, Flex, IconButton, Image, Text as ChakraText } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  IconButton,
+  Image,
+  Text as ChakraText,
+} from "@chakra-ui/react";
 import { Camera } from "lucide-react";
 import { useRouter } from "next/navigation";
 
@@ -106,11 +113,13 @@ const CameraPage: React.FC = () => {
               OK
             </Button>
             <Button colorScheme="gray" onClick={handleNoClick}>
-              again
+              再撮影
             </Button>
           </>
         ) : (
-          isPhotoTaken && <ChakraText>画面がキャプチャされませんでした</ChakraText>
+          isPhotoTaken && (
+            <ChakraText>画面がキャプチャされませんでした</ChakraText>
+          )
         )}
       </Flex>
     </Box>
@@ -118,4 +127,3 @@ const CameraPage: React.FC = () => {
 };
 
 export default CameraPage;
-

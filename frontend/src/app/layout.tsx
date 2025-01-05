@@ -1,10 +1,11 @@
 "use client";
 
-import { Provider } from "@/components/ui/provider";
+import { ChakraProvider } from "@chakra-ui/react";
 import { createSystem, defaultConfig } from "@chakra-ui/react";
 import Header from "@/app/components/Common/Header";
 import Footer from "@/app/components/Common/Footer";
 import "@/app/styles/globals.css";
+import { SystemContext } from "@/types"; // 型をインポート
 
 export const system = createSystem(defaultConfig, {
   theme: {
@@ -25,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body>
-        <Provider value={system}>
+        <ChakraProvider value={system}>
           <div
             style={{
               display: "flex",
@@ -73,7 +74,7 @@ export default function RootLayout({
               <Footer />
             </div>
           </div>
-        </Provider>
+        </ChakraProvider>
       </body>
     </html>
   );
