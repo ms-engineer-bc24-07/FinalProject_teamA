@@ -1,9 +1,9 @@
-"use client"; // Next.jsでクライアントコンポーネント指定
+"use client";
 
 import { Flex, Box } from "@chakra-ui/react";
-import MessageBox from "./components/Outfits/Outfits1/MessageBox";
+import MessageBox from "../components/Outfits/Outfits1/MessageBox";
 import { useState } from "react";
-import Coordinate from "./components/Outfits/Outfits2/Coordinate";
+import Coordinate from "../components/Outfits/Outfits2/Coordinate";
 
 const Outfits1 = () => {
   const [loading, setLoading] = useState<boolean | undefined>(undefined);
@@ -21,8 +21,8 @@ const Outfits1 = () => {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            request: "recommendation" // 新しいリクエストデータ
-          })
+            request: "recommendation", // 新しいリクエストデータ
+          }),
         }
       );
 
@@ -75,11 +75,10 @@ const Outfits1 = () => {
       >
         {topsImage && bottomsImage && (
           <Coordinate topsImage={topsImage} bottomsImage={bottomsImage} />
-        ) }
+        )}
       </Flex>
     );
   }
 };
 
 export default Outfits1;
-
