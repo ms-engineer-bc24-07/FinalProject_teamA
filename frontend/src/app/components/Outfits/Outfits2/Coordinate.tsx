@@ -3,7 +3,6 @@
 
 import { Box, Text, Container } from "@chakra-ui/react";
 import OutfitsList from "./OutFitsList";
-import { useEffect } from "react";
 
 import Buttons from "./Buttons";
 

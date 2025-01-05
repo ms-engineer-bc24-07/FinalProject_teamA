@@ -1,7 +1,6 @@
 //提案されたコーデのアイテム表示
 "use client";
 import { Box, SimpleGrid, Image } from "@chakra-ui/react";
-import { useState } from "react";
 
 type Props = {
   topsImage?: string;
