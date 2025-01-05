@@ -115,8 +115,8 @@ def recommend_coordinate():
     data = request.get_json()
 
     # 仮の色を設定（あとでAIで色を決める実際のロジックに基づいて変更可能）
-    tops_color = 'blue'  # 例: ユーザーのリクエストやAIの提案に基づいて設定
-    bottoms_color = 'white'  # 同上    
+    tops_color = 'white'  # 例: ユーザーのリクエストやAIの提案に基づいて設定
+    bottoms_color = 'black'  # 同上    
     # tops_color = 'blue'  # 例: ユーザーのリクエストやAIの提案に基づいて設定
     # bottoms_color = 'black'  # 同上
 
