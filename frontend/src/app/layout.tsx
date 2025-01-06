@@ -1,10 +1,9 @@
 "use client";
 
-import { Provider } from "@/components/ui/provider";
+import { Box } from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
+import { SystemContext } from "@/types"; // 型をインポート
 import { createSystem, defaultConfig } from "@chakra-ui/react";
-import Header from "@/app/components/Common/Header";
-import Footer from "@/app/components/Common/Footer";
-import "@/app/styles/globals.css";
 
 export const system = createSystem(defaultConfig, {
   theme: {
@@ -25,55 +24,11 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body>
-        <Provider value={system}>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              minHeight: "100vh",
-            }}
-          >
-            {/* Headerを固定 */}
-            <div style={{ flexShrink: 0 }}>
-              <Header />
-            </div>
-            {/* メインコンテンツ領域 */}
-            <div style={{ flex: "1", display: "flex" }}>
-              <main
-                style={{
-                  flex: "1",
-                  marginBottom: "60px",
-                  display: "flex",
-                  justifyContent: "center",
-                  paddingTop: "100px", // Headerの高さを考慮してパディングを追加
-                  paddingBottom: "80px", // Footerの高さを考慮してパディングを追加
-                  alignItems: "center",
-                  overflow: "hidden",
-                }}
-              >
-                <div
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    maxWidth: "1200px",
-                    padding: "20px",
-                    boxSizing: "border-box",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  {children}
-                </div>
-              </main>
-            </div>
-            {/* Footerを固定 */}
-            <div style={{ flexShrink: 0 }}>
-              <Footer />
-            </div>
-          </div>
-        </Provider>
+        <ChakraProvider value={system}>
+          <Box as="main" minH="100vh" pt={16}>
+            {children}
+          </Box>
+        </ChakraProvider>
       </body>
     </html>
   );

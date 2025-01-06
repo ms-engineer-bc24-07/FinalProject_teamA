@@ -53,3 +53,5 @@ flask_session/
 
 # Secret key generation script
 generate_secret_key.py
+
+.next

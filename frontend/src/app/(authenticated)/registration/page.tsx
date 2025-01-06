@@ -3,21 +3,34 @@
 // プルダウンでタグを選択してクローゼット（S3）に登録し、データベースに登録
 // **********************************************************
 
-
 "use client"; // Next.jsでクライアントコンポーネント指定
 
 import React, { useEffect, useState } from "react";
 import { Box, Flex, Image, Button, Text, Spacer } from "@chakra-ui/react";
 import { Toaster, toaster } from "@/components/ui/toaster";
 import { FaTshirt } from "react-icons/fa";
-import { NativeSelectField, NativeSelectRoot } from "@/components/ui/native-select";
 import { useRouter } from "next/navigation"; // useRouterフックをインポート
+import {
+  NativeSelectField,
+  NativeSelectRoot,
+} from "@/components/ui/native-select";
+import {
+  DialogActionTrigger,
+  DialogBody,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogRoot,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 const RegistrationPage: React.FC = () => {
   const [category, setCategory] = useState("");
   const [color, setColor] = useState("");
   const [itemImageURL, setItemImageURL] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);  // ローディング状態を追加
+  const [loading, setLoading] = useState(true); // ローディング状態を追加
   const router = useRouter(); // useRouterフックを使用
 
   // セッションストレージから画像を取得するための useEffect フック
@@ -28,7 +41,7 @@ const RegistrationPage: React.FC = () => {
       if (capturedImage) {
         setItemImageURL(capturedImage);
       }
-      setLoading(false);  // データ取得後にローディング状態を解除
+      setLoading(false); // データ取得後にローディング状態を解除
     };
     loadImage();
   }, []);
@@ -75,10 +88,13 @@ const RegistrationPage: React.FC = () => {
         console.log(`${key}: ${value}`);
       });
 
-      const uploadResponse = await fetch("http://localhost:5000/api/registration/upload", {
-        method: "POST",
-        body: formData,
-      });
+      const uploadResponse = await fetch(
+        "http://localhost:5000/api/registration/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       if (uploadResponse.ok) {
         const data = await uploadResponse.json();
@@ -93,7 +109,6 @@ const RegistrationPage: React.FC = () => {
 
         // Closetページに遷移し、新しいアイテムを追加する
         router.push("/closet");
-
       } else {
         const errorData = await uploadResponse.json();
         toaster.create({
@@ -113,22 +128,23 @@ const RegistrationPage: React.FC = () => {
   };
 
   if (loading) {
-    return <Text>Loading...</Text>;  // ローディング中の表示
+    return <Text>Loading...</Text>; // ローディング中の表示
   }
 
   return (
     <Box
-      p={4}
+      p={8}
       bg="gray.100"
       minH="100vh"
       display="flex"
       flexDirection="column"
       alignItems="center"
+      h="70%"
     >
       {/* Header */}
       <Box mb={4} textAlign="center">
-        <Text fontSize="2xl" fontWeight="bold" textTransform="uppercase">
-          Registration
+        <Text fontSize="xl" fontWeight="medium" textTransform="uppercase">
+          アイテムを登録する
         </Text>
       </Box>
 
@@ -139,7 +155,7 @@ const RegistrationPage: React.FC = () => {
         bg="white"
         borderRadius="lg"
         boxShadow="md"
-        p={6}
+        p={10}
         textAlign="center"
       >
         {/* Top Icon */}
@@ -166,11 +182,12 @@ const RegistrationPage: React.FC = () => {
           <Text fontSize="sm" fontWeight="semibold" mb={2}>
             Category
           </Text>
-          <NativeSelectRoot size="sm" width="240px">
+          <NativeSelectRoot size="xs" width="210px" alignItems="center">
             <NativeSelectField
-              placeholder="アイテムの種類を選択してください"
+              placeholder="アイテムの種類を選択"
               value={category}
               onChange={handleCategoryChange}
+              textOverflow="ellipsis"
             >
               <option value="tops">トップス</option>
               <option value="bottoms">ボトムス</option>
@@ -183,9 +200,9 @@ const RegistrationPage: React.FC = () => {
           <Text fontSize="sm" fontWeight="semibold" mb={2}>
             Color
           </Text>
-          <NativeSelectRoot size="sm" width="240px">
+          <NativeSelectRoot size="xs" width="210px">
             <NativeSelectField
-              placeholder="メインの色を選択してください"
+              placeholder="メインの色を選択"
               value={color}
               onChange={handleColorChange}
             >
@@ -207,12 +224,52 @@ const RegistrationPage: React.FC = () => {
         </Box>
 
         {/* Buttons */}
-        <Flex justify="center" gap={4}>
-          <Button colorScheme="yellow" w="40%" onClick={handleSave}>
-            OK
-          </Button>
-          <Button colorScheme="gray" w="40%">
-            Back
+        <Flex justify="center" gap={8}>
+          <DialogRoot>
+            <DialogTrigger asChild>
+              <Button
+                w="40%"
+                variant="solid"
+                colorPalette="teal"
+                color="yellow50" // テキスト色
+                fontWeight="650" // 文字の太さを指定
+                _hover={{ bg: "teal.300" }} // ホバー時の背景色
+                rounded="lg" // 角丸
+              >
+                OK
+              </Button>
+            </DialogTrigger>
+            {/* ダイアログのコンテンツ */}
+            <DialogContent w="max">
+              <DialogHeader>
+                {/* <DialogTitle>今日の一言</DialogTitle> */}
+              </DialogHeader>
+              <DialogBody>
+                <Text>新しいアイテムが保存されました！</Text>
+              </DialogBody>
+              <DialogFooter>
+                {/* Cancel ボタン */}
+                <DialogActionTrigger asChild>
+                  <Button variant="outline">OK</Button>
+                </DialogActionTrigger>
+              </DialogFooter>
+
+              {/* ダイアログを閉じるトリガー */}
+              <DialogCloseTrigger />
+            </DialogContent>
+          </DialogRoot>
+
+          <Button
+            colorScheme="gray"
+            w="40%"
+            variant="solid"
+            colorPalette="teal"
+            color="yellow50" // テキスト色
+            fontWeight="650" // 文字の太さを指定
+            _hover={{ bg: "teal.300" }} // ホバー時の背景色
+            rounded="lg" // 角丸
+          >
+            BACK
           </Button>
         </Flex>
       </Box>

@@ -18,7 +18,7 @@ const Header = () => {
       width="100%" // 全幅をカバー
       zIndex="10" // 他の要素より前面に表示
       textAlign="center"
-      p={8}
+      p={5}
       bg="gray.50"
       borderColor="green.400"
       boxShadow="sm"

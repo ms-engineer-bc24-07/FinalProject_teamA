@@ -1,21 +1,13 @@
 "use client"; // クライアントコンポーネントを明示
 
 import { Button, Box, HStack } from "@chakra-ui/react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
 
-type Props = {
-  clickEvent?: () => void;
-};
-
-const MessageBox: React.FC<Props> = ({ clickEvent, ...props }) => {
-  const router = useRouter();
-
+const ButtonToCamera = () => {
   return (
     <Box p={4} textAlign="flex-start">
       <HStack wrap="wrap" gap="6">
         <Button
-          onClick={clickEvent}
+          //   onClick={clickEvent}
           variant="solid"
           colorPalette="teal"
           // bg="green.300" // 背景色
@@ -28,11 +20,11 @@ const MessageBox: React.FC<Props> = ({ clickEvent, ...props }) => {
           rounded="lg" // 角丸
           transition="0.2s" // トランジション時間
         >
-          何を着ようかな？
+          アイテム撮影
         </Button>
       </HStack>
     </Box>
   );
 };
 
-export default MessageBox;
+export default ButtonToCamera;

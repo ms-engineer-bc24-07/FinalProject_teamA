@@ -1,24 +1,27 @@
-import React from 'react';
-import './styles.css'; // スタイルファイルをインポート
+"use client";
+
+import React from "react";
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
-    <html lang="ja">
-      <body>
-        <div className="layout-container">
-          <header className="header">
-            <h1>My Application</h1>
-          </header>
-          <main className="main-content">{children}</main>
-          <footer className="footer">
-            <p>&copy; 2023 My Application</p>
-          </footer>
-        </div>
-      </body>
-    </html>
+    <Box className="layout-container">
+      <Flex
+        as="main"
+        className="main-content"
+        flex="1"
+        justify="center"
+        align="center"
+      >
+        {children}
+      </Flex>
+      <Box as="footer" bg="gray.700" color="white" textAlign="center" py={2}>
+        <Text>&copy; 2025 Dayzzy</Text>
+      </Box>
+    </Box>
   );
 }

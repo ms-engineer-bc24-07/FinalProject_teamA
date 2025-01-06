@@ -25,7 +25,7 @@ const Footer = () => {
       boxShadow="sm"
       zIndex={10}
     >
-      <Flex gap="0" justify="space-between" width="full">
+      <Flex gap="0" justify="space-around" width="full">
         <Link href={"/"}>
           <Box height="20" width="25" px={2}>
             <VStack gap="0">

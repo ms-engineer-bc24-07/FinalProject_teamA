@@ -1,7 +1,14 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import { Box, Button, Flex, IconButton, Image, Text as ChakraText } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  IconButton,
+  Image,
+  Text as ChakraText,
+} from "@chakra-ui/react";
 import { Camera } from "lucide-react";
 import { useRouter } from "next/navigation";
 
@@ -89,8 +96,15 @@ const CameraPage: React.FC = () => {
         justifyContent="center"
         h="100vh"
       >
-        <Button colorScheme="blue" onClick={handleCapture} mb={2}>
-          撮影
+        <Button
+          colorPalette="teal"
+          color="yellow.50"
+          _hover={{ bg: "teal.600" }}
+          rounded="lg"
+          onClick={handleCapture}
+          mb={2}
+        >
+          撮影する
         </Button>
         <video
           ref={videoRef}
@@ -102,15 +116,30 @@ const CameraPage: React.FC = () => {
         {isPhotoTaken && capturedImage ? (
           <>
             <Image src={capturedImage} alt="Preview" mb={4} />
-            <Button colorScheme="yellow" onClick={handleYesClick} mb={2}>
+            <Button
+              colorPalette="teal"
+              color="yellow.50"
+              _hover={{ bg: "teal.600" }}
+              rounded="lg"
+              onClick={handleYesClick}
+              mb={2}
+            >
               OK
             </Button>
-            <Button colorScheme="gray" onClick={handleNoClick}>
-              again
+            <Button
+              colorPalette="teal"
+              color="yellow.50"
+              _hover={{ bg: "teal.600" }}
+              rounded="lg"
+              onClick={handleNoClick}
+            >
+              再撮影
             </Button>
           </>
         ) : (
-          isPhotoTaken && <ChakraText>画面がキャプチャされませんでした</ChakraText>
+          isPhotoTaken && (
+            <ChakraText>画面がキャプチャされませんでした</ChakraText>
+          )
         )}
       </Flex>
     </Box>
@@ -118,4 +147,3 @@ const CameraPage: React.FC = () => {
 };
 
 export default CameraPage;
-
