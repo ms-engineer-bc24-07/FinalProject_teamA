@@ -1,6 +1,8 @@
+// 01060823チェンジボタンを押すとチェンジしたコーデ提案ができるよう実装
 "use client";
+import { useRouter } from "next/navigation";
 import { Box, Button, Text } from "@chakra-ui/react";
-import { For, HStack } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import {
   DialogActionTrigger,
   DialogBody,
@@ -13,7 +15,32 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-const Buttons = () => {
+interface ButtonsProps {
+  onChangeClick: () => void;
+}
+
+const Buttons: React.FC<ButtonsProps> = ({ onChangeClick }) => {
+  const router = useRouter();
+  const [randomMessage, setRandomMessage] = useState<string>("");
+
+  const messages = [
+    "あなたの笑顔がまわりの人を幸せしますよ。良い1日を💛",
+    "あなたの頑張りは、必ず誰かの心に届きます。素敵な１日を",
+    "今日のあなたは、昨日のあなたより強くなる！今日も頑張ろう",
+    "どんな小さな一歩も、あなたの宝物になります。良い1日を",
+    "うっかり忘れ物には気をつけてください 素敵な1日になりますように.."
+  ];
+
+  useEffect(() => {
+    const randomIndex = Math.floor(Math.random() * messages.length);
+    setRandomMessage(messages[randomIndex]);
+  }, []);
+
+  const handleOkClick = () => {
+    router.push("/");
+    // window.location.reload(); // ページをリロードする場合はこっちを選ぶよ
+  };
+
   return (
     <Box display="flex" justifyContent="center" gap={4}>
       {/* YES!! ボタン */}
@@ -34,17 +61,19 @@ const Buttons = () => {
         {/* ダイアログのコンテンツ */}
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>今日の一言</DialogTitle>
+            <DialogTitle>あなたのコーディネートが登録されましたよ</DialogTitle>
           </DialogHeader>
           <DialogBody>
             <Text>
-              うっかり忘れ物には気をつけてください 素敵な1日になりますように..
+              【今日のひとこと】
+              <br />
+              {randomMessage}
             </Text>
           </DialogBody>
           <DialogFooter>
-            {/* Cancel ボタン */}
+            {/* OK ボタン */}
             <DialogActionTrigger asChild>
-              <Button variant="outline">OK</Button>
+              <Button name="AAA" variant="outline" onClick={handleOkClick}>OK</Button>
             </DialogActionTrigger>
           </DialogFooter>
 
@@ -55,6 +84,7 @@ const Buttons = () => {
 
       {/* CHANGE ボタン */}
       <Button
+        onClick={onChangeClick} // CHANGEボタンのクリック時に関数を呼び出し
         bg="teal.500"
         color="white"
         _hover={{ bg: "teal.600" }}
@@ -69,3 +99,107 @@ const Buttons = () => {
 };
 
 export default Buttons;
+
+
+
+
+
+// *********************************************************
+// チェンジボタンが無効のまま動けるコード
+
+// "use client";
+// import { useRouter } from "next/navigation";
+// import { Box, Button, Text } from "@chakra-ui/react";
+// import { For, HStack } from "@chakra-ui/react";
+// import {
+//   DialogActionTrigger,
+//   DialogBody,
+//   DialogCloseTrigger,
+//   DialogContent,
+//   DialogFooter,
+//   DialogHeader,
+//   DialogRoot,
+//   DialogTitle,
+//   DialogTrigger,
+// } from "@/components/ui/dialog";
+// import { useEffect, useState } from "react";
+
+// const Buttons = () => {
+//   const router = useRouter();
+//   const [randomMessage, setRandomMessage] = useState<string>("");
+
+//   const messages = [
+//     "あなたの笑顔がまわりの人を幸せしますよ。良い1日を💛",
+//     "あなたの頑張りは、必ず誰かの心に届きます。素敵な１日を",
+//     "今日のあなたは、昨日のあなたより強くなる！今日も頑張ろう",
+//     "どんな小さな一歩も、あなたの宝物になります。良い1日を",
+//     "うっかり忘れ物には気をつけてください 素敵な1日になりますように.."
+//   ];
+
+//   useEffect(() => {
+//     const randomIndex = Math.floor(Math.random() * messages.length);
+//     setRandomMessage(messages[randomIndex]);
+//   }, []);
+
+//   const handleOkClick = () =>{ 
+//     router.push("/");
+//     // window.location.reload(); // ページをリロードする場合はこっちを選ぶよ
+//   };
+
+//   return (
+//     <Box display="flex" justifyContent="center" gap={4}>
+//       {/* YES!! ボタン */}
+//       <DialogRoot>
+//         <DialogTrigger asChild>
+//           <Button
+//             bg="teal.500"
+//             color="white"
+//             _hover={{ bg: "teal.600" }}
+//             px={6} // 横のパディング
+//             py={3} // 縦のパディング
+//             borderRadius="md"
+//           >
+//             YES!!
+//           </Button>
+//         </DialogTrigger>
+
+//         {/* ダイアログのコンテンツ */}
+//         <DialogContent>
+//           <DialogHeader>
+//             <DialogTitle>あなたのコーディネートが登録されましたよ</DialogTitle>
+//           </DialogHeader>
+//           <DialogBody>
+//             <Text>
+//               【今日のひとこと】
+//               <br />
+//               {randomMessage}
+//             </Text>
+//           </DialogBody>
+//           <DialogFooter>
+//             {/* OK ボタン */}
+//             <DialogActionTrigger asChild>
+//               <Button name="AAA" variant="outline" onClick={handleOkClick}>OK</Button>
+//             </DialogActionTrigger>
+//           </DialogFooter>
+
+//           {/* ダイアログを閉じるトリガー */}
+//           <DialogCloseTrigger />
+//         </DialogContent>
+//       </DialogRoot>
+
+//       {/* CHANGE ボタン */}
+//       <Button
+//         bg="teal.500"
+//         color="white"
+//         _hover={{ bg: "teal.600" }}
+//         px={6} // 横のパディング
+//         py={3} // 縦のパディング
+//         borderRadius="md"
+//       >
+//         CHANGE
+//       </Button>
+//     </Box>
+//   );
+// };
+
+// export default Buttons;

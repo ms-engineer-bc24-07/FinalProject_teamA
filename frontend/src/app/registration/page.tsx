@@ -1,4 +1,9 @@
-// // // 202501031221
+// **********************************************************
+// camera/page.tsxで写真を撮った後、RegistrationPageに遷移
+// プルダウンでタグを選択してクローゼット（S3）に登録し、データベースに登録
+// **********************************************************
+
+
 "use client"; // Next.jsでクライアントコンポーネント指定
 
 import React, { useEffect, useState } from "react";
@@ -6,12 +11,14 @@ import { Box, Flex, Image, Button, Text, Spacer } from "@chakra-ui/react";
 import { Toaster, toaster } from "@/components/ui/toaster";
 import { FaTshirt } from "react-icons/fa";
 import { NativeSelectField, NativeSelectRoot } from "@/components/ui/native-select";
+import { useRouter } from "next/navigation"; // useRouterフックをインポート
 
 const RegistrationPage: React.FC = () => {
   const [category, setCategory] = useState("");
   const [color, setColor] = useState("");
   const [itemImageURL, setItemImageURL] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);  // ローディング状態を追加
+  const router = useRouter(); // useRouterフックを使用
 
   // セッションストレージから画像を取得するための useEffect フック
   useEffect(() => {
@@ -44,34 +51,51 @@ const RegistrationPage: React.FC = () => {
       return;
     }
 
-    const payload = {
-      itemImageURL, // 画像URL（AWS S3のURLに置き換える）
-      categoryTag: category,
-      colorTag: color,
-    };
+    if (!itemImageURL) {
+      toaster.create({
+        title: "Validation Error",
+        description: "No image captured.",
+        type: "error",
+      });
+      return;
+    }
 
     try {
-      const response = await fetch("/api/registration/upload", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
+      const response = await fetch(itemImageURL);
+      const blob = await response.blob();
+
+      const formData = new FormData();
+      formData.append("file", blob, "capturedImage.png");
+      formData.append("category", category);
+      formData.append("color", color);
+
+      // デバッグ用のログ
+      console.log("FormData content:");
+      formData.forEach((value, key) => {
+        console.log(`${key}: ${value}`);
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        setItemImageURL(data.filename); // S3のURLを設定
+      const uploadResponse = await fetch("http://localhost:5000/api/registration/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (uploadResponse.ok) {
+        const data = await uploadResponse.json();
+        setItemImageURL(data.filename);
         toaster.create({
           title: "Success",
           description: "Item saved successfully.",
           type: "success",
         });
-        // フォームをリセット
         setCategory("");
         setColor("");
+
+        // Closetページに遷移し、新しいアイテムを追加する
+        router.push("/closet");
+
       } else {
-        const errorData = await response.json();
+        const errorData = await uploadResponse.json();
         toaster.create({
           title: "Error",
           description: errorData.message || "Failed to save item.",
@@ -136,6 +160,7 @@ const RegistrationPage: React.FC = () => {
         ) : (
           <Text>No Image</Text>
         )}
+
         {/* Category Selection */}
         <Box mb={4}>
           <Text fontSize="sm" fontWeight="semibold" mb={2}>
