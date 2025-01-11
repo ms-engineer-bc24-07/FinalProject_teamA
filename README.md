@@ -1,13 +1,13 @@
 # FinalProject_teamA
 
 ## チーム名
-teamA（仮）
-
-
-# 概要
-
+リスプラ～ず
 ## アプリケーション名
-着回し提案をするワードロープアプリ（仮）
+Dayzzy　　～be easy, everyday～
+
+![image](https://github.com/user-attachments/assets/480cd063-d82c-4bc4-97f2-44c903a5e6f8)
+
+
 
 ## 目的
 日々の服選びの時間短縮。服装選びを少しでも楽に、楽しく、負担軽減。
@@ -20,6 +20,9 @@ teamA（仮）
 ### ワードロープ機能(WR)
 
 写真付きで手持ちのファッションアイテムを登録し、管理できる。
+
+
+
 
 ### コーディネート機能(CN)
 
