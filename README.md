@@ -2,11 +2,11 @@
 
 ## チーム名
 リスプラ～ず
+
 ## アプリケーション名
 Dayzzy　　～be easy, everyday～
 
 ![image](https://github.com/user-attachments/assets/480cd063-d82c-4bc4-97f2-44c903a5e6f8)
-
 
 
 ## 目的
