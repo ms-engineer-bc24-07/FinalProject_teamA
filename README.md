@@ -3,11 +3,11 @@
 ## チーム名
 リスプラ～ず
 
-
-# 概要
-
 ## アプリケーション名
-Dayzzy
+Dayzzy　　～be easy, everyday～
+
+![image](https://github.com/user-attachments/assets/480cd063-d82c-4bc4-97f2-44c903a5e6f8)
+
 
 ## 目的
 日々の服選びの時間短縮。服装選びを少しでも楽に、楽しく、負担軽減。
@@ -20,6 +20,9 @@ Dayzzy
 ### ワードロープ機能(WR)
 
 写真付きで手持ちのファッションアイテムを登録し、管理できる。
+
+
+
 
 ### コーディネート機能(CN)
 
