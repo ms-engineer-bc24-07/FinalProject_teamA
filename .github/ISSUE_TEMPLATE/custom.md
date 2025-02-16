@@ -1,11 +1,3 @@
----
-name: Custom issue template
-about: Describe this issue template's purpose here.
-title: ''
-labels: ''
-assignees: ''
-
----
 
 ## Title
 issue番号_機能名称_このissueを通してどのような状態になったか簡潔に記載
